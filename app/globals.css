@@ -18,9 +18,65 @@
     --foreground: #ededed;
   }
 }
+@keyframes floatDragon {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.dragon {
+  animation: floatDragon 700s ease-in-out infinite;
+}
+
+
+html, body {
+  height: 100%;
+}
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  background: black;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/dragon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: black;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  outline: none;
+}
+
+.input:focus {
+  border-color: white;
+}
+
+.social-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: white;
+  transition: 0.2s;
+}
+
+.social-btn:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+
