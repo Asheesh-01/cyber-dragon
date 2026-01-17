@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -91,11 +92,19 @@ export default function LoginPage() {
         </div>
 
         {/* Forgot */}
-        <div className="text-sm text-gray-400 text-right mt-2">
+        {/* <div className="text-sm text-gray-400 text-right mt-2">
           <a href="/forgot-password" className="hover:text-white hover:underline">
             Forgot password?
           </a>
-        </div>
+
+        </div> */}
+        <Link
+           href="/forgot-password"
+           className="text-sm text-gray-400 hover:text-white hover:underline"
+            >
+          Forgot password?
+          </Link>
+
 
         {/* Sign in */}
         <button
