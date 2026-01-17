@@ -1,75 +1,95 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function ResetPassword() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const exchangeSession = async () => {
-      const code = searchParams.get("code");
-
-      if (!code) {
-        setLoading(false);
-        return;
-      }
-
-      await supabase.auth.exchangeCodeForSession(code);
-      setLoading(false);
-    };
-
-    exchangeSession();
-  }, [searchParams]);
+  const router = useRouter();
 
   const updatePassword = async () => {
-    const { error } = await supabase.auth.updateUser({ password });
+    if (!password || !confirm) {
+      return alert("Fill all fields");
+    }
 
-    if (error) alert(error.message);
-    else {
+    if (password !== confirm) {
+      return alert("Passwords do not match");
+    }
+
+    setLoading(true);
+
+    const { error } = await supabase.auth.updateUser({
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      alert(error.message);
+    } else {
       alert("Password updated successfully");
-      await supabase.auth.signOut();
       router.push("/login");
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        Loading...
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="w-[380px] bg-black/60 backdrop-blur-lg border border-gray-700 rounded-xl p-8 space-y-6">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl">
 
-        <div className="text-center space-y-1">
-          <h1 className="text-2xl font-bold">The Cyber Dragon</h1>
-          <p className="text-gray-400 text-sm">Create your new password</p>
+          <h1 className="text-2xl font-semibold text-center">
+            The Cyber Dragon
+          </h1>
+
+          <p className="text-sm text-gray-400 text-center mt-1">
+            Create new password
+          </p>
+
+          {/* New Password */}
+          <div className="mt-6">
+            <label className="text-sm text-gray-400">New password</label>
+            <input
+              type="password"
+              className="mt-1 w-full bg-black border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-white transition"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div className="mt-4">
+            <label className="text-sm text-gray-400">Confirm password</label>
+            <input
+              type="password"
+              className="mt-1 w-full bg-black border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-white transition"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+            />
+          </div>
+
+          {/* Button */}
+          <button
+            onClick={updatePassword}
+            disabled={loading}
+            className="w-full mt-6 bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
+            {loading ? "Updating..." : "Update Password"}
+          </button>
+
+          {/* Back to login */}
+          <button
+            onClick={() => router.push("/login")}
+            className="w-full mt-3 text-sm text-gray-400 hover:text-white transition"
+          >
+            Return to login
+          </button>
+
         </div>
-
-        <input
-          type="password"
-          placeholder="New Password"
-          className="w-full p-3 rounded bg-black border border-gray-700 focus:outline-none"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button
-          onClick={updatePassword}
-          className="w-full bg-white text-black py-2 rounded font-semibold"
-        >
-          Update Password
-        </button>
-
       </div>
-    </div>
+    </main>
   );
 }

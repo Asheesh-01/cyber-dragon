@@ -80,3 +80,46 @@ body::before {
 }
 
 
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 380px;
+  backdrop-filter: blur(10px);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  background: black;
+  border: 1px solid gray;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 22px;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.link {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  color: gray;
+}

@@ -2,71 +2,68 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const sendReset = async () => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://www.cyberdragons.in/reset-password",
-    });
+  const sendOtp = async () => {
+    if (!email) return alert("Enter email");
+
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOtp({ email });
+    setLoading(false);
 
     if (error) alert(error.message);
-    else setSent(true);
+    else router.push(`/verify-otp?email=${email}`);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="w-[380px] bg-black/60 backdrop-blur-lg border border-gray-700 rounded-xl p-8 space-y-6">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
 
-        <div className="text-center space-y-1">
-          <h1 className="text-2xl font-bold">The Cyber Dragon</h1>
-          <p className="text-gray-400 text-sm">
-            Reset your account password
+      <div className="w-full max-w-md">
+
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl">
+
+          <h1 className="text-2xl font-semibold text-center">
+            The Cyber Dragon
+          </h1>
+
+          <p className="text-sm text-gray-400 text-center mt-1">
+            Reset your password
           </p>
-        </div>
 
-        {sent ? (
-          <>
-            <p className="text-green-400 text-center text-sm">
-              Reset link sent to your email.
-            </p>
-
-            <Link
-              href="/login"
-              className="block text-center border py-2 rounded hover:bg-white hover:text-black transition"
-            >
-              Return to Login
-            </Link>
-          </>
-        ) : (
-          <>
+          <div className="mt-6">
+            <label className="text-sm text-gray-400">Email</label>
             <input
               type="email"
-              placeholder="Enter your email"
-              className="w-full p-3 rounded bg-black border border-gray-700 focus:outline-none"
+              className="mt-1 w-full bg-black border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-white transition"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+          </div>
 
-            <button
-              onClick={sendReset}
-              className="w-full bg-white text-black py-2 rounded font-semibold hover:opacity-90"
-            >
-              Continue
-            </button>
+          <button
+            onClick={sendOtp}
+            disabled={loading}
+            className="w-full mt-6 bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
+            {loading ? "Sending..." : "Continue"}
+          </button>
 
-            <Link
-              href="/login"
-              className="block text-center text-gray-400 text-sm hover:text-white"
-            >
-              Return to Login
-            </Link>
-          </>
-        )}
+          <button
+            onClick={() => router.push("/login")}
+            className="w-full mt-3 text-sm text-gray-400 hover:text-white transition"
+          >
+            Return to login
+          </button>
+
+        </div>
 
       </div>
-    </div>
+
+    </main>
   );
 }
