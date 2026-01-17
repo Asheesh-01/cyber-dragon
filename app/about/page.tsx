@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "About CyberDragon – Cybersecurity Learning Platform",
-  description:
-    "CyberDragon is a cybersecurity learning platform built to teach real networking, system security, and digital defense through structured practical learning.",
-};
+
 
 export default function AboutPage() {
   return (
