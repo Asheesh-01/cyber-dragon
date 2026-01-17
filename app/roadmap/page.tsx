@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "CyberDragon Roadmap – Cybersecurity Learning Path",
+  description:
+    "Follow CyberDragon’s structured cybersecurity learning roadmap for beginners to advanced learners.",
+};
+
 export default function RoadmapPage() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6">

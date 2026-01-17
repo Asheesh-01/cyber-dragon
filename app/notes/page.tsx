@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "CyberDragon Notes – Cybersecurity Study Notes",
+  description:
+    "Access structured cybersecurity notes for networking, security, and system protection.",
+};
+
 export default function NotesPage() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6">

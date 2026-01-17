@@ -1,4 +1,12 @@
 "use client";
+import type { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "CyberDragon – Cybersecurity Learning Platform",
+//   description:
+//     "CyberDragon is a cybersecurity learning platform for mastering networking, system security, SOC, and digital defense.",
+// };
+
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";

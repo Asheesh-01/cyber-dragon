@@ -1,4 +1,10 @@
 "use client";
+export const metadata = {
+  title: "CyberDragon Courses – Cybersecurity Learning",
+  description:
+    "Explore cybersecurity courses on networking, security, SOC, and system defense at CyberDragon.",
+};
+
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";

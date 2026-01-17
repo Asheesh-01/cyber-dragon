@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Contact CyberDragon – Cybersecurity Learning Platform",
+  description:
+    "Contact CyberDragon for support, feedback, and collaboration in cybersecurity learning.",
+};
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6">

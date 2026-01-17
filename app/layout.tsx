@@ -1,10 +1,18 @@
 import "./globals.css";
 import Navbar from "./navbar";
 
-export const metadata = {
-  title: "The Cyber Dragon",
-  description: "Cybersecurity Learning Platform",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "CyberDragon – Cybersecurity Learning Platform",
+  description:
+    "CyberDragon is a cybersecurity learning platform for mastering networking, system security, SOC, and digital defense.",
 };
+
+// export const metadata = {
+//   title: "The Cyber Dragon",
+//   description: "Cybersecurity Learning Platform",
+// };
 
 export default function RootLayout({
   children,
