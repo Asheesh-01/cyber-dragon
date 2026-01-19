@@ -42,28 +42,27 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-xl border-b border-white/10">
 
-      <div className="relative flex items-center h-16 px-6">
+      <div className="flex items-center justify-between h-16 px-6">
 
-        {/* LEFT */}
-        <div className="absolute left-6">
-          <Link href="/" className="text-xl font-bold hover:text-gray-300">
-            The Cyber Dragon
-          </Link>
-        </div>
+        {/* LEFT LOGO */}
+        <Link href="/" className="text-xl font-bold hover:text-gray-300">
+          The Cyber Dragon
+        </Link>
 
-        {/* CENTER */}
-        <div className="mx-auto hidden lg:flex gap-6">
-          <Link href="/" className={linkClass("/")}>Home</Link>
-          <Link href="/roadmap" className={linkClass("/roadmap")}>Roadmap</Link>
-          <Link href="/notes" className={linkClass("/notes")}>Notes</Link>
-          <Link href="/courses" className={linkClass("/courses")}>Courses</Link>
-          <Link href="/about" className={linkClass("/about")}>About</Link>
-          <Link href="/contact" className={linkClass("/contact")}>Contact</Link>
-        </div>
+        {/* RIGHT SIDE ALL CONTROLS */}
+        <div className="flex items-center gap-5">
 
-        {/* RIGHT */}
-        <div className="absolute right-6 flex items-center gap-3">
+          {/* NAV LINKS */}
+          <div className="hidden lg:flex gap-5">
+            <Link href="/" className={linkClass("/")}>Home</Link>
+            <Link href="/roadmap" className={linkClass("/roadmap")}>Roadmap</Link>
+            <Link href="/notes" className={linkClass("/notes")}>Notes</Link>
+            <Link href="/courses" className={linkClass("/courses")}>Courses</Link>
+            <Link href="/about" className={linkClass("/about")}>About</Link>
+            <Link href="/contact" className={linkClass("/contact")}>Contact</Link>
+          </div>
 
+          {/* LOGIN / LOGOUT */}
           {user ? (
             <button
               onClick={handleLogout}
@@ -89,24 +88,23 @@ export default function Navbar() {
             </Link>
           )}
 
-          {/* Hamburger always visible */}
+          {/* HAMBURGER */}
           <button
             onClick={() => setOpen(!open)}
-            className="text-white text-2xl w-9 h-9 flex items-center justify-center hover:bg-white/10 rounded transition"
+            className="text-white text-xl w-9 h-9 flex items-center justify-center hover:bg-white/10 rounded transition"
           >
             {open ? "✕" : "☰"}
           </button>
         </div>
       </div>
 
-      {/* Dropdown Menu */}
+      {/* DROPDOWN MENU */}
       {open && (
         <div
           ref={menuRef}
           className="absolute top-full right-4 w-64 bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl"
         >
           <div className="flex flex-col p-3">
-
             <Link href="/" className="menuItem">Home</Link>
             <Link href="/roadmap" className="menuItem">Roadmap</Link>
             <Link href="/notes" className="menuItem">Notes</Link>

@@ -26,7 +26,8 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white">
       
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center px-4 sm:px-6 py-20 pt-32 min-h-screen">
+      <section className="flex flex-col items-center justify-center px-4 sm:px-6 pt-20 pb-16 min-h-[85vh]">
+
       <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-center leading-tight mb-4">
         Master Cybersecurity
       </h1>
@@ -35,7 +36,8 @@ export default function Home() {
         World's #1 Cyber Learning Platform
       </h2>
 
-      <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12 sm:mb-16 text-sm sm:text-base">
+      <p className="text-gray-400 text-center max-w-2xl mx-auto mb-8 sm:mb-10 text-sm sm:text-base">
+
         Learn Linux, Networking, SOC, Pentesting & AI-Security with real industry structure.
       </p>
 
@@ -62,7 +64,8 @@ export default function Home() {
       </section>
 
       {/* About Platform Section */}
-      <section className="px-4 sm:px-6 py-12 sm:py-16 max-w-5xl mx-auto w-full">
+<section className="px-4 sm:px-6 pt-6 sm:pt-8 pb-12 sm:pb-16 max-w-5xl mx-auto w-full">
+
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">About CyberDragon</h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">
