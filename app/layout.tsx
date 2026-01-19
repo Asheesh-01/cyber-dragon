@@ -4,7 +4,7 @@ import Navbar from "./navbar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cyberdragons.in"),
+  metadataBase: new URL("https://www.cyberdragons.in"),
   title: "CyberDragon – Cybersecurity Learning Platform",
   description:
     "CyberDragon is a cybersecurity learning platform for mastering networking, system security, SOC, and digital defense.",
