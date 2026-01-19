@@ -60,7 +60,7 @@ export default function NoteDetailPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-black text-white flex items-center justify-center">
-        {/* <BackButton /> */}
+      
 
         Loading...
       </main>
