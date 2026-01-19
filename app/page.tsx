@@ -55,7 +55,7 @@ export default function Home() {
 
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 text-center hover:border-white/20 transition">
           <p className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">100%</p>
-          <p className="text-gray-300 font-semibold text-sm sm:text-base">Industry Focused</p>
+          <p className="text-gray-300 fonall t-semibold text-sm sm:text-base">Industry Focused</p>
           <p className="text-gray-500 text-xs sm:text-sm mt-2">Real-world scenarios</p>
         </div>
       </div>
