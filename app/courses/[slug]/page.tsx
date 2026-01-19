@@ -36,10 +36,42 @@ export default function CourseDetailPage() {
 
   if (!course) {
     return (
-      <main className="min-h-screen bg-black text-white flex items-center justify-center">
-       
-
-        Course not found
+      <main className="min-h-screen bg-black text-white px-10 pt-32 pb-16 flex flex-col items-center justify-center">
+        <BackButton />
+        
+        <div className="text-center max-w-2xl">
+          <h1 className="text-4xl font-bold mb-4">Course Not Found</h1>
+          <p className="text-gray-400 text-lg mb-8">
+            The course you're looking for doesn't exist or may have been removed.
+          </p>
+          
+          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 mb-8">
+            <p className="text-gray-300 mb-4">
+              Here are some popular courses you might be interested in:
+            </p>
+            <ul className="text-left space-y-3 text-gray-400">
+              <li className="flex items-center gap-2">
+                <span className="text-blue-400">→</span> Linux for Cybersecurity
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-blue-400">→</span> Networking Fundamentals
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-blue-400">→</span> Web Security Basics
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-blue-400">→</span> SOC Analyst Basics
+              </li>
+            </ul>
+          </div>
+          
+          <button 
+            onClick={() => router.push("/courses")}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition"
+          >
+            Browse All Courses
+          </button>
+        </div>
       </main>
     );
   }
