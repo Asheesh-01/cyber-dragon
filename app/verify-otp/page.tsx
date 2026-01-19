@@ -24,28 +24,34 @@ export default function VerifyOTP() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="bg-white/5 backdrop-blur-lg p-8 rounded-2xl w-[380px] border border-white/10">
+    <div className="min-h-screen flex items-center justify-center bg-black text-white px-4 sm:px-6 py-12 pt-28 sm:pt-32">
+      <div className="bg-white/5 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/10 shadow-xl hover:border-white/20 transition">
 
-        <h1 className="text-2xl font-bold text-center">The Cyber Dragon</h1>
-        <p className="text-gray-400 text-center mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center">The Cyber Dragon</h1>
+        <p className="text-gray-400 text-center text-xs sm:text-sm mb-6 mt-2">
           Enter OTP sent to your email
         </p>
 
-        <input
-          className="w-full bg-black border border-gray-600 rounded px-3 py-2 mb-3 outline-none"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="mb-3">
+          <label className="text-xs sm:text-sm text-gray-400 block mb-2">Email</label>
+          <input
+            className="w-full bg-black border border-white/10 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:border-blue-600 focus:outline-none transition text-sm sm:text-base"
+            placeholder="your@email.com"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-        <input
-          className="w-full bg-black border border-gray-600 rounded px-3 py-2 mb-4 outline-none"
-          placeholder="Enter OTP"
-          onChange={(e) => setOtp(e.target.value)}
-        />
+        <div className="mb-4">
+          <label className="text-xs sm:text-sm text-gray-400 block mb-2">OTP</label>
+          <input
+            className="w-full bg-black border border-white/10 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:border-blue-600 focus:outline-none transition text-sm sm:text-base"
+            placeholder="000000"
+            onChange={(e) => setOtp(e.target.value)}
+          />
+        </div>
 
         <button
-          className="w-full bg-white text-black py-2 rounded font-semibold hover:bg-gray-200 transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 sm:py-3 rounded-lg font-semibold transition shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] text-sm sm:text-base"
           onClick={verify}
         >
           Verify OTP
@@ -53,7 +59,7 @@ export default function VerifyOTP() {
 
         <button
           onClick={() => router.push("/login")}
-          className="w-full mt-3 text-gray-400 hover:text-white"
+          className="w-full mt-3 text-gray-400 hover:text-blue-400 transition text-xs sm:text-sm"
         >
           Return to login
         </button>

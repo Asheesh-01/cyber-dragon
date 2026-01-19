@@ -43,13 +43,13 @@ export default function Navbar() {
       : "text-gray-400 hover:text-white transition";
 
   return (
-    <header className="fixed top-0 left-0 w-full  z-50 p-5 flex justify-between items-center bg-black/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 py-4 flex justify-between items-center bg-black/90 backdrop-blur-xl border-b border-white/10">
+      
+      <Link href="/" className="text-xl sm:text-2xl font-bold hover:text-gray-300 transition">
+        The Cyber Dragon
+      </Link>
 
-
-      <Link href="/" className="text-2xl font-bold hover:text-gray-300 transition">
-  The Cyber Dragon
-</Link>
-
+      {/* Desktop Navigation */}
       <nav className="hidden md:flex gap-6 items-center">
         <Link href="/" className={linkClass("/")}>Home</Link>
         <Link href="/roadmap" className={linkClass("/roadmap")}>Roadmap</Link>
@@ -61,50 +61,90 @@ export default function Navbar() {
         {!user ? (
           <Link
             href="/login"
-            className="border px-3 py-1 rounded hover:bg-white hover:text-black transition"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-[0_0_15px_rgba(37,99,235,0.4)]"
           >
             Login
           </Link>
-        ) : (
-          <button onClick={() => setOpen(!open)} className="text-white text-xl">
-            ☰
-          </button>
-        )}
+        ) : null}
       </nav>
 
-      {user && (
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-white text-xl"
-        >
-          ☰
-        </button>
-      )}
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="md:hidden text-white text-2xl flex items-center justify-center w-8 h-8"
+      >
+        {open ? "✕" : "☰"}
+      </button>
 
+      {/* Mobile Menu */}
       {open && (
         <div
           ref={menuRef}
-          className="absolute top-16 right-6 bg-black border border-gray-800 rounded-lg w-48 shadow-lg overflow-hidden"
+          className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 md:hidden"
         >
-          <Link className="block px-4 py-2 hover:bg-gray-800" href="/">Home</Link>
-          <Link className="block px-4 py-2 hover:bg-gray-800" href="/roadmap">Roadmap</Link>
-          <Link className="block px-4 py-2 hover:bg-gray-800" href="/notes">Notes</Link>
-          <Link className="block px-4 py-2 hover:bg-gray-800" href="/courses">Courses</Link>
-          <Link className="block px-4 py-2 hover:bg-gray-800" href="/about">About</Link>
-          <Link className="block px-4 py-2 hover:bg-gray-800" href="/contact">Contact</Link>
-
-          {role === "admin" && (
-            <Link className="block px-4 py-2 text-red-400 hover:bg-gray-800" href="/admin">
-              Admin
+          <div className="flex flex-col">
+            <Link 
+              className="px-4 sm:px-6 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition border-b border-white/5" 
+              href="/"
+            >
+              Home
             </Link>
-          )}
+            <Link 
+              className="px-4 sm:px-6 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition border-b border-white/5" 
+              href="/roadmap"
+            >
+              Roadmap
+            </Link>
+            <Link 
+              className="px-4 sm:px-6 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition border-b border-white/5" 
+              href="/notes"
+            >
+              Notes
+            </Link>
+            <Link 
+              className="px-4 sm:px-6 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition border-b border-white/5" 
+              href="/courses"
+            >
+              Courses
+            </Link>
+            <Link 
+              className="px-4 sm:px-6 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition border-b border-white/5" 
+              href="/about"
+            >
+              About
+            </Link>
+            <Link 
+              className="px-4 sm:px-6 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition border-b border-white/5" 
+              href="/contact"
+            >
+              Contact
+            </Link>
 
-          <button
-            onClick={handleLogout}
-            className="w-full text-left px-4 py-2 hover:bg-red-600 text-red-400 hover:text-white transition"
-          >
-            Logout
-          </button>
+            {role === "admin" && (
+              <Link 
+                className="px-4 sm:px-6 py-3 text-red-400 hover:text-red-300 hover:bg-white/5 transition border-b border-white/5" 
+                href="/admin"
+              >
+                Admin Panel
+              </Link>
+            )}
+
+            {!user ? (
+              <Link 
+                href="/login"
+                className="px-4 sm:px-6 py-3 text-blue-400 hover:text-blue-300 hover:bg-white/5 transition font-semibold border-b border-white/5"
+              >
+                Login
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 sm:px-6 py-3 text-red-400 hover:text-red-300 hover:bg-red-600/10 transition font-semibold"
+              >
+                Logout
+              </button>
+            )}
+          </div>
         </div>
       )}
     </header>

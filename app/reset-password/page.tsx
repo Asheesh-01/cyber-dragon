@@ -37,24 +37,25 @@ export default function ResetPassword() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 py-12 pt-28 sm:pt-32">
       <div className="w-full max-w-md">
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-white/20 transition">
 
-          <h1 className="text-2xl font-semibold text-center">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-center">
             The Cyber Dragon
           </h1>
 
-          <p className="text-sm text-gray-400 text-center mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 text-center mt-2">
             Create new password
           </p>
 
           {/* New Password */}
           <div className="mt-6">
-            <label className="text-sm text-gray-400">New password</label>
+            <label className="text-xs sm:text-sm text-gray-400 block mb-2">New Password</label>
             <input
               type="password"
-              className="mt-1 w-full bg-black border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-white transition"
+              placeholder="••••••••"
+              className="w-full bg-black border border-white/10 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:border-blue-600 transition text-sm sm:text-base"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -62,10 +63,11 @@ export default function ResetPassword() {
 
           {/* Confirm Password */}
           <div className="mt-4">
-            <label className="text-sm text-gray-400">Confirm password</label>
+            <label className="text-xs sm:text-sm text-gray-400 block mb-2">Confirm Password</label>
             <input
               type="password"
-              className="mt-1 w-full bg-black border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-white transition"
+              placeholder="••••••••"
+              className="w-full bg-black border border-white/10 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:border-blue-600 transition text-sm sm:text-base"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
             />
@@ -75,15 +77,15 @@ export default function ResetPassword() {
           <button
             onClick={updatePassword}
             disabled={loading}
-            className="w-full mt-6 bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 sm:py-3 rounded-lg font-semibold transition shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] disabled:opacity-50 text-sm sm:text-base"
           >
-            {loading ? "Updating..." : "Update Password"}
+            {loading ? "Updating..." : "Reset Password"}
           </button>
 
           {/* Back to login */}
           <button
             onClick={() => router.push("/login")}
-            className="w-full mt-3 text-sm text-gray-400 hover:text-white transition"
+            className="w-full mt-3 text-xs sm:text-sm text-gray-400 hover:text-blue-400 transition"
           >
             Return to login
           </button>

@@ -54,24 +54,25 @@ function LoginContent() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 py-12 pt-28 sm:pt-32">
 
-      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 w-full max-w-md shadow-xl">
+      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-xl hover:border-white/20 transition">
 
         {/* Brand */}
-        <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold">The Cyber Dragon</h1>
-          <p className="text-gray-400 text-sm mt-1">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold">The Cyber Dragon</h1>
+          <p className="text-gray-400 text-xs sm:text-sm mt-2">
             Sign in to continue learning
           </p>
         </div>
 
         {/* Email */}
         <div className="mb-4">
-          <label className="text-sm text-gray-400">Email</label>
+          <label className="text-xs sm:text-sm text-gray-400 block mb-2">Email</label>
           <input
             type="email"
-            className="w-full mt-1 p-3 rounded bg-black border border-white/10 focus:border-white outline-none"
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-black border border-white/10 focus:border-blue-600 focus:outline-none transition text-sm sm:text-base"
+            placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -79,10 +80,11 @@ function LoginContent() {
 
         {/* Password */}
         <div className="mb-2 relative">
-          <label className="text-sm text-gray-400">Password</label>
+          <label className="text-xs sm:text-sm text-gray-400 block mb-2">Password</label>
           <input
             type={show ? "text" : "password"}
-            className="w-full mt-1 p-3 rounded bg-black border border-white/10 focus:border-white outline-none pr-10"
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-black border border-white/10 focus:border-blue-600 focus:outline-none transition pr-10 text-sm sm:text-base"
+            placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -90,7 +92,7 @@ function LoginContent() {
           <button
             type="button"
             onClick={() => setShow(!show)}
-            className="absolute right-3 top-9 text-gray-400"
+            className="absolute right-3 top-10 text-gray-400 hover:text-gray-300 transition"
           >
             {show ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
@@ -99,7 +101,7 @@ function LoginContent() {
         {/* Forgot */}
         <Link
           href="/forgot-password"
-          className="text-sm text-gray-400 hover:text-white hover:underline"
+          className="text-xs sm:text-sm text-gray-400 hover:text-blue-400 transition"
         >
           Forgot password?
         </Link>
@@ -108,7 +110,7 @@ function LoginContent() {
         <button
           onClick={handleLogin}
           disabled={loading}
-          className="w-full py-3 mt-4 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition"
+          className="w-full py-2 sm:py-3 mt-6 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] disabled:opacity-50 text-sm sm:text-base"
         >
           {loading ? "Signing in..." : "Sign in"}
         </button>
@@ -116,24 +118,24 @@ function LoginContent() {
         {/* Divider */}
         <div className="flex items-center my-6">
           <div className="flex-1 h-px bg-white/10" />
-          <span className="px-3 text-sm text-gray-400">or</span>
+          <span className="px-2 sm:px-3 text-xs sm:text-sm text-gray-400">or</span>
           <div className="flex-1 h-px bg-white/10" />
         </div>
 
         {/* Google button */}
         <button
           onClick={googleLogin}
-          className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/10 transition"
+          className="w-full py-2 sm:py-3 rounded-lg border border-white/20 hover:bg-white/5 transition text-sm sm:text-base"
         >
           Sign in with Google
         </button>
 
         {/* Create */}
-        <p className="text-center text-sm text-gray-400 mt-6">
+        <p className="text-center text-xs sm:text-sm text-gray-400 mt-6">
           New here?{" "}
-          <a href="/register" className="text-white hover:underline">
+          <Link href="/register" className="text-blue-400 hover:text-blue-300 font-semibold transition">
             Create Account →
-          </a>
+          </Link>
         </p>
 
       </div>
