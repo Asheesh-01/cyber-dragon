@@ -79,6 +79,7 @@ export default function NoteDetailPage() {
 
   return (
     <main className="min-h-screen bg-black text-white px-10 pt-22 py-16 max-w-4xl mx-auto">
+      <BackButton />
 
       <h1 className="text-4xl font-bold mb-6">{note.title}</h1>
 

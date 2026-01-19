@@ -46,6 +46,7 @@ export default function CourseDetailPage() {
 
   return (
     <main className="min-h-screen bg-black text-white px-10 pt-32 pb-16 max-w-5xl mx-auto">
+      <BackButton />
 
       <div className="grid md:grid-cols-2 gap-10">
 
