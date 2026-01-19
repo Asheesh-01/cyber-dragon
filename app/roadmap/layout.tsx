@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "CyberDragon Roadmap – Cybersecurity Learning Path",
   description:
     "Follow CyberDragon’s structured cybersecurity roadmap from beginner to advanced level.",
+      alternates: {
+    canonical: "https://www.cyberdragons.in/roadmap",
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
