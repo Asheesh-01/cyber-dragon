@@ -2,29 +2,46 @@ import Link from "next/link";
 
 export default function CourseCard({ course }: any) {
   return (
-    <Link href={`/courses/${course.slug}`} className="block">
-      <div className="bg-gray-900 rounded-xl p-5 border border-gray-800
-        transform transition duration-300 hover:scale-105 hover:shadow-xl
-        flex flex-col h-full">
-
-        {/* Image */}
-        <div className="h-36 bg-gray-800 rounded mb-4 flex items-center justify-center text-gray-500">
+    <Link
+      href={`/courses/${course.slug}`}
+      className="group"
+    >
+      <div
+        className="
+          bg-white/5 backdrop-blur-xl
+          border border-white/10
+          rounded-xl p-6
+          transition-all duration-300 ease-out
+          hover:-translate-y-2
+          hover:shadow-[0_0_25px_rgba(59,130,246,0.25)]
+        "
+      >
+        <div
+          className="
+            h-32 bg-gray-800 rounded mb-4
+            flex items-center justify-center text-gray-500
+            transition-transform duration-300
+            group-hover:scale-105
+          "
+        >
           Course Image
         </div>
 
-        {/* Content */}
-        <h2 className="text-lg font-bold">{course.title}</h2>
-        <p className="text-sm text-gray-400">{course.category}</p>
+        <h2 className="text-xl font-bold">
+          {course.title}
+        </h2>
 
-        <p className="text-sm mt-2 text-gray-300 line-clamp-3 flex-grow">
+        <p className="text-sm text-gray-400 mt-1">
+          {course.category}
+        </p>
+
+        <p className="text-gray-300 mt-3 text-sm">
           {course.description}
         </p>
 
-        {/* Price */}
-        <div className="mt-4 font-semibold text-blue-400">
-          {course.price}
-        </div>
-
+        <p className="mt-4 text-blue-400 font-semibold">
+          View Course →
+        </p>
       </div>
     </Link>
   );

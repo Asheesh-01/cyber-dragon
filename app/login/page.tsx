@@ -4,12 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Eye, EyeOff } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
 
   // EMAIL LOGIN
   const handleLogin = async () => {
@@ -33,7 +38,7 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/";
+    router.push(redirect || "/");
   };
 
   // GOOGLE LOGIN
@@ -41,7 +46,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: `${window.location.origin}${redirect || "/"}`,
       },
     });
 
@@ -92,19 +97,12 @@ export default function LoginPage() {
         </div>
 
         {/* Forgot */}
-        {/* <div className="text-sm text-gray-400 text-right mt-2">
-          <a href="/forgot-password" className="hover:text-white hover:underline">
-            Forgot password?
-          </a>
-
-        </div> */}
         <Link
-           href="/forgot-password"
-           className="text-sm text-gray-400 hover:text-white hover:underline"
-            >
+          href="/forgot-password"
+          className="text-sm text-gray-400 hover:text-white hover:underline"
+        >
           Forgot password?
-          </Link>
-
+        </Link>
 
         {/* Sign in */}
         <button
