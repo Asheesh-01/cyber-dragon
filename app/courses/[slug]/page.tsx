@@ -37,7 +37,7 @@ export default function CourseDetailPage() {
   if (!course) {
     return (
       <main className="min-h-screen bg-black text-white flex items-center justify-center">
-        <BackButton />
+        {/* <BackButton /> */}
 
         Course not found
       </main>
