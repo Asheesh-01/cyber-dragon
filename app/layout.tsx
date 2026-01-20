@@ -1,6 +1,5 @@
 import "./globals.css";
 import Navbar from "./navbar";
-
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,11 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-// export const metadata = {
-//   title: "The Cyber Dragon",
-//   description: "Cybersecurity Learning Platform",
-// };
-
 export default function RootLayout({
   children,
 }: {
@@ -31,11 +25,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* WebSite Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Cyber Dragon",
+              url: "https://www.cyberdragons.in",
+            }),
+          }}
+        />
+
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "CyberDragon",
+              url: "https://www.cyberdragons.in",
+              logo: "https://www.cyberdragons.in/favicon.png",
+            }),
+          }}
+        />
+      </head>
+
       <body className="bg-black text-white relative overflow-x-hidden">
         <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <main className="min-h-screen">{children}</main>
       </body>
     </html>
   );
