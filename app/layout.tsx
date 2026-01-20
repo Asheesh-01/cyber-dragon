@@ -8,6 +8,15 @@ export const metadata: Metadata = {
   title: "CyberDragon – Cybersecurity Learning Platform",
   description:
     "CyberDragon is a cybersecurity learning platform for mastering networking, system security, SOC, and digital defense.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/favicon.png",
+  },
 };
 
 // export const metadata = {

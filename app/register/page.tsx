@@ -5,6 +5,33 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Eye, EyeOff } from "lucide-react";
 
+// SECURE: Validation helpers
+const validateEmail = (email: string): boolean => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email) && email.length <= 255;
+};
+
+const validatePassword = (password: string): string | null => {
+  if (password.length < 12) return "Password must be at least 12 characters";
+  if (!/[A-Z]/.test(password)) return "Password must contain uppercase letter";
+  if (!/[a-z]/.test(password)) return "Password must contain lowercase letter";
+  if (!/[0-9]/.test(password)) return "Password must contain a number";
+  if (!/[!@#$%^&*]/.test(password)) return "Password must contain special character (!@#$%^&*)";
+  return null;
+};
+
+const validateName = (name: string): boolean => {
+  return /^[a-zA-Z\s\-']{2,100}$/.test(name.trim());
+};
+
+const validatePhone = (phone: string): boolean => {
+  return /^[\d\s+\-()]{10,20}$/.test(phone.trim());
+};
+
+const sanitizeInput = (input: string): string => {
+  return input.trim().substring(0, 100);
+};
+
 export default function RegisterPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -13,17 +40,57 @@ export default function RegisterPage() {
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // EMAIL REGISTER
+  // SECURE: EMAIL REGISTER with validation
   const handleRegister = async () => {
+    const newErrors: Record<string, string> = {};
+
+    // Validate all inputs
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (!validateName(name)) {
+      newErrors.name = "Name can only contain letters, spaces, hyphens, and apostrophes";
+    }
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!validateEmail(email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!phone.trim()) {
+      newErrors.phone = "Phone is required";
+    } else if (!validatePhone(phone)) {
+      newErrors.phone = "Invalid phone number";
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required";
+    } else {
+      const passwordError = validatePassword(password);
+      if (passwordError) {
+        newErrors.password = passwordError;
+      }
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     setLoading(true);
     setMsg("");
+    setErrors({});
 
     const { error } = await supabase.auth.signUp({
-      email,
+      email: email.toLowerCase(),
       password,
       options: {
-        data: { name, phone },
+        data: {
+          name: sanitizeInput(name),
+          phone: sanitizeInput(phone),
+        },
         emailRedirectTo: `${window.location.origin}/login`,
       },
     });
@@ -31,13 +98,17 @@ export default function RegisterPage() {
     setLoading(false);
 
     if (error) {
-      setMsg(error.message);
+      if (error.message.includes("already registered")) {
+        setMsg("This email is already registered. Please login instead.");
+      } else {
+        setMsg("Registration failed. Please try again.");
+      }
     } else {
       setMsg("Verification email sent. Please check your inbox.");
     }
   };
 
-  // GOOGLE REGISTER
+  // SECURE: GOOGLE REGISTER
   const googleRegister = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -46,7 +117,7 @@ export default function RegisterPage() {
       },
     });
 
-    if (error) alert(error.message);
+    if (error) setMsg("Google registration failed. Please try again.");
   };
 
   return (
@@ -65,37 +136,50 @@ export default function RegisterPage() {
           </p>
 
           {/* Name */}
-          <input
-            placeholder="Full Name"
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition text-sm sm:text-base mb-3"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="mb-3">
+            <input
+              placeholder="Full Name"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition text-sm sm:text-base"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              maxLength={100}
+            />
+            {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+          </div>
 
           {/* Phone */}
-          <input
-            placeholder="Phone Number"
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition text-sm sm:text-base mb-3"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+          <div className="mb-3">
+            <input
+              placeholder="Phone Number"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition text-sm sm:text-base"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              maxLength={20}
+            />
+            {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+          </div>
 
           {/* Email */}
-          <input
-            placeholder="Email"
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition text-sm sm:text-base mb-3"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="mb-3">
+            <input
+              placeholder="Email"
+              type="email"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition text-sm sm:text-base"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+          </div>
 
           {/* Password */}
           <div className="relative mb-4">
             <input
-              placeholder="Password"
+              placeholder="Password (min 12 chars, uppercase, number, special char)"
               type={show ? "text" : "password"}
               className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black border border-white/10 rounded-lg focus:border-blue-600 focus:outline-none transition pr-10 text-sm sm:text-base"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              maxLength={128}
             />
 
             <button
@@ -105,11 +189,16 @@ export default function RegisterPage() {
             >
               {show ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
+            {errors.password && <p className="text-red-400 text-xs mt-1">{errors.password}</p>}
           </div>
 
           {/* Message */}
           {msg && (
-            <p className="text-green-400 text-xs sm:text-sm text-center mb-4 p-2 bg-green-500/10 border border-green-500/30 rounded-lg">
+            <p className={`text-xs sm:text-sm text-center mb-4 p-2 rounded-lg border ${
+              msg.includes("failed") || msg.includes("already") 
+                ? "bg-red-500/10 border-red-500/30 text-red-400"
+                : "bg-green-500/10 border-green-500/30 text-green-400"
+            }`}>
               {msg}
             </p>
           )}
@@ -117,7 +206,7 @@ export default function RegisterPage() {
           {/* Button */}
           <button
             onClick={handleRegister}
-            disabled={loading}
+            disabled={loading || !name || !email || !phone || !password}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 sm:py-3 rounded-lg mt-6 font-semibold transition shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] disabled:opacity-50 text-sm sm:text-base"
           >
             {loading ? "Creating..." : "Sign up"}
