@@ -15,7 +15,7 @@ export default function HomeContent() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-[auto] bg-black text-white">
       
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center px-4 sm:px-6 pt-20 pb-16 min-h-[85vh]">
@@ -95,7 +95,7 @@ export default function HomeContent() {
       </section>
 
       {/* Featured Courses Section */}
-      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
+      <section className="px-4 sm:px-6 py-6 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Popular Cybersecurity Courses</h2>
@@ -147,7 +147,7 @@ export default function HomeContent() {
       </section>
 
       {/* Free Notes Section */}
-      <section className="px-4 sm:px-6 py-12 sm:py-20 max-w-5xl mx-auto w-full">
+      <section className="px-4 sm:px-6 py-6 sm:py-20 max-w-5xl mx-auto w-full">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Free Cybersecurity Study Notes</h2>
           <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
@@ -191,7 +191,7 @@ export default function HomeContent() {
       </section>
 
       {/* Cybersecurity Roadmap Section */}
-      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
+      <section className="px-4 sm:px-6 py-6 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose CyberDragon for Cybersecurity Learning?</h2>
@@ -234,7 +234,7 @@ export default function HomeContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-4 sm:px-6 py-12 sm:py-20 max-w-5xl mx-auto text-center w-full">
+      <section className="px-4 sm:px-6 py-6 sm:py-20 max-w-5xl mx-auto text-center w-full">
         <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">Ready to Start Your Cybersecurity Journey?</h2>
         <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 sm:mb-10">
           Join thousands of cybersecurity learners. Explore free cybersecurity notes, enroll in professional courses, and follow our structured roadmap to career success.

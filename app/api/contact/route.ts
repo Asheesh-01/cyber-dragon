@@ -1,18 +1,32 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
 
+// ✅ Backend Supabase Client
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_URL as string,
+  process.env.SUPABASE_SERVICE_ROLE_KEY as string
 );
+
+// ✅ Resend Client
+const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export async function POST(req: Request) {
   try {
-    const { name, email, message } = await req.json();
+    const body = await req.json();
+    const { name, email, message } = body;
 
-    if (!name || !email || !message) {
+    if (
+      typeof name !== "string" ||
+      typeof email !== "string" ||
+      typeof message !== "string"
+    ) {
+      return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+    }
+
+    if (!name.trim() || !email.trim() || !message.trim()) {
       return NextResponse.json(
-        { error: "Missing fields" },
+        { error: "All fields are required" },
         { status: 400 }
       );
     }
@@ -24,22 +38,48 @@ export async function POST(req: Request) {
 
     const userAgent = req.headers.get("user-agent") || "unknown";
 
-    const { error } = await supabase.from("contact_messages").insert([
-      { name, email, message, ip_address: ip, user_agent: userAgent },
-    ]);
+    // ✅ Save to Supabase
+    const { error } = await supabase
+      .from("contact_messages")
+      .insert([
+        {
+          name: name.trim(),
+          email: email.toLowerCase().trim(),
+          message: message.trim(),
+          ip_address: ip,
+          user_agent: userAgent,
+        },
+      ]);
 
     if (error) {
-      console.error(error);
-      return NextResponse.json({ error: "DB error" }, { status: 500 });
+      console.error("Supabase error:", error);
+      return NextResponse.json(
+        { error: "Failed to save message" },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({ success: true });
-  } catch (err) {
-  console.error(err);
+    // ✅ Send Email
+    await resend.emails.send({
+      from: "CyberDragon <contact@cyberdragons.in>",
+      to: process.env.CONTACT_RECEIVER_EMAIL as string,
+      subject: `New Contact Message from ${name}`,
+      html: `
+        <h2>New Contact Message</h2>
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Message:</b></p>
+        <p>${message}</p>
+      `,
+    });
 
+    return NextResponse.json({ success: true }, { status: 200 });
+
+  } catch (err) {
+    console.error("API error:", err);
     return NextResponse.json(
-      { error: "Invalid request" },
-      { status: 400 }
+      { error: "Internal server error" },
+      { status: 500 }
     );
   }
 }

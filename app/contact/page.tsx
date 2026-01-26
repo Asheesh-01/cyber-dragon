@@ -10,13 +10,34 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // Handle form submission here
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Failed to send message");
+    }
+
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
     setFormData({ name: "", email: "", message: "" });
-  };
+
+    setTimeout(() => setSubmitted(false), 3000);
+  } catch (err) {
+    console.error("Contact form error:", err);
+    alert("Failed to send message. Try again.");
+  }
+};
+
 
   return (
     <main className="min-h-screen bg-black text-white px-4 sm:px-6 py-12 sm:py-20 pt-28 sm:pt-32">
@@ -101,16 +122,16 @@ export default function ContactPage() {
             <div>
               <h3 className="text-xs sm:text-sm text-gray-400 uppercase tracking-wide mb-2">Email</h3>
               <a href="mailto:contact@cyberdragons.in" className="text-base sm:text-lg text-blue-400 hover:text-blue-300 transition break-all">
-                contact@cyberdragons.in
+                cyberdragons.in@gmail.in
               </a>
             </div>
 
-            <div>
+            {/* <div>
               <h3 className="text-xs sm:text-sm text-gray-400 uppercase tracking-wide mb-2">Phone</h3>
               <a href="tel:+919876543210" className="text-base sm:text-lg text-blue-400 hover:text-blue-300 transition">
                 +91 98765 43210
               </a>
-            </div>
+            </div> */}
 
             <div>
               <h3 className="text-xs sm:text-sm text-gray-400 uppercase tracking-wide mb-2">Response Time</h3>
@@ -130,7 +151,12 @@ export default function ContactPage() {
                 </a>
                 <a href="#" className="px-3 sm:px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-gray-300 hover:text-white transition text-xs sm:text-sm">
                   LinkedIn
-                </a>
+                </a>    <a href="#" className="px-3 sm:px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-gray-300 hover:text-white transition text-xs sm:text-sm">
+                  Instagram
+                </a>  
+                  {/* <a href="#" className="px-3 sm:px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-gray-300 hover:text-white transition text-xs sm:text-sm">
+                  fgffg
+                </a> */}
               </div>
             </div>
           </div>

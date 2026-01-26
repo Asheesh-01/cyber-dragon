@@ -105,7 +105,8 @@ export default function RootLayout({
 
       <body className="bg-black text-white relative overflow-x-hidden">
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="pt-16">{children}</main>
+
       </body>
     </html>
   );

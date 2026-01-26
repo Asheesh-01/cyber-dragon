@@ -7,31 +7,45 @@ import { supabase } from "@/lib/supabase";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [user, setUser] = useState<any>(undefined);
+  const [user, setUser] = useState<any>(null);
   const [role, setRole] = useState<string>("user");
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  // ✅ AUTH STATE SYNC (FIXED)
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-      setRole(data.user?.user_metadata?.role || "user");
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setRole(session?.user?.user_metadata?.role || "user");
     });
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+        setRole(session?.user?.user_metadata?.role || "user");
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
+  // ✅ CLICK OUTSIDE CLOSE
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // ✅ LOGOUT
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.reload();
   };
 
   const linkClass = (path: string) =>
@@ -41,7 +55,6 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-xl border-b border-white/10">
-
       <div className="flex items-center justify-between h-16 px-6">
 
         {/* LEFT LOGO */}
@@ -49,11 +62,11 @@ export default function Navbar() {
           The Cyber Dragon
         </Link>
 
-        {/* RIGHT SIDE ALL CONTROLS */}
+        {/* RIGHT SIDE */}
         <div className="flex items-center gap-5">
 
           {/* NAV LINKS */}
-          <div className="hidden lg:flex gap-5">
+          <div className="hidden md:flex gap-5">
             <Link href="/" className={linkClass("/")}>Home</Link>
             <Link href="/roadmap" className={linkClass("/roadmap")}>Roadmap</Link>
             <Link href="/notes" className={linkClass("/notes")}>Notes</Link>
@@ -98,7 +111,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* DROPDOWN MENU */}
+      {/* DROPDOWN */}
       {open && (
         <div
           ref={menuRef}
