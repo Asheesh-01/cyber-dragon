@@ -8,36 +8,30 @@ import BackButton from "@/components/BackButton";
 const notesContent: any = {
   "networking-basics": {
     title: "Networking Basics",
-    content: "This section covers OSI model, TCP/IP, devices, and fundamentals of networking.",
+    content: "Coming soon...............",
   },
   "linux-fundamentals": {
     title: "Linux Fundamentals",
-    content: "Learn essential Linux commands, file system, permissions and processes.",
+    content: "Coming soon...............",
   },
-  "web-security": {
-    title: "Web Security",
-    content: "Understand XSS, SQL Injection, CSRF and secure coding practices.",
-  },
+  "Security Engineer": {
+    title: "SOC or Cloud Security",
+    content: "..............",  },
   "cryptography-basics": {
     title: "Cryptography Basics",
-    content: "Learn encryption, hashing, symmetric and asymmetric cryptography.",
-  },
+    content: "Coming soon...............",  },
   "owasp-top-10": {
     title: "OWASP Top 10",
-    content: "Top 10 web application vulnerabilities explained.",
-  },
+    content: "Coming soon...............",  },
   "operating-systems": {
     title: "Operating Systems",
-    content: "Process management, memory, file systems and scheduling.",
-  },
+    content: "Coming soon...............",  },
   "ip-addressing": {
     title: "IP Addressing",
-    content: "IPv4, IPv6, subnetting and CIDR explained.",
-  },
+    content: "Coming soon...............",  },
   "mac-address": {
     title: "MAC Address",
-    content: "MAC address structure, types and ARP role.",
-  },
+    content: "Coming soon...............",  },
 };
 
 export default function NoteDetailPage() {

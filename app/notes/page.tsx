@@ -7,54 +7,54 @@ export const metadata = {
 };
 
 const notes = [
+  // {
+  //   title: "Networking Basics",
+  //   slug: "networking-basics",
+  //   category: "Foundation",
+  //   description: "Understand how networks work in cybersecurity.",
+  // },
+  // {
+  //   title: "Linux Fundamentals",
+  //   slug: "linux-fundamentals",
+  //   category: "Foundation",
+  //   description: "Learn Linux commands and system usage for security.",
+  // },
   {
-    title: "Networking Basics",
-    slug: "networking-basics",
-    category: "Foundation",
-    description: "Understand how networks work in cybersecurity.",
-  },
-  {
-    title: "Linux Fundamentals",
-    slug: "linux-fundamentals",
-    category: "Foundation",
-    description: "Learn Linux commands and system usage for security.",
-  },
-  {
-    title: "Web Security",
-    slug: "web-security",
+    title: "Security Engineer or Cloud Security",
+    slug: "Security Engineer",
     category: "Security",
     description: "Understand common web vulnerabilities and defenses.",
   },
-  {
-    title: "Cryptography Basics",
-    slug: "cryptography-basics",
-    category: "Security",
-    description: "Learn encryption, hashing, and digital signatures.",
-  },
-  {
-    title: "OWASP Top 10",
-    slug: "owasp-top-10",
-    category: "Web Security",
-    description: "Top 10 critical web application risks.",
-  },
-  {
-    title: "Operating Systems",
-    slug: "operating-systems",
-    category: "Core",
-    description: "Process, memory, and file system concepts.",
-  },
-  {
-    title: "IP Addressing",
-    slug: "ip-addressing",
-    category: "Networking",
-    description: "IPv4, IPv6, CIDR and subnetting.",
-  },
-  {
-    title: "MAC Address",
-    slug: "mac-address",
-    category: "Networking",
-    description: "Understanding MAC address and ARP.",
-  },
+  // {
+  //   title: "Cryptography Basics",
+  //   slug: "cryptography-basics",
+  //   category: "Security",
+  //   description: "Learn encryption, hashing, and digital signatures.",
+  // },
+  // {
+  //   title: "OWASP Top 10",
+  //   slug: "owasp-top-10",
+  //   category: "Web Security",
+  //   description: "Top 10 critical web application risks.",
+  // },
+  // {
+  //   title: "Operating Systems",
+  //   slug: "operating-systems",
+  //   category: "Core",
+  //   description: "Process, memory, and file system concepts.",
+  // },
+  // {
+  //   title: "IP Addressing",
+  //   slug: "ip-addressing",
+  //   category: "Networking",
+  //   description: "IPv4, IPv6, CIDR and subnetting.",
+  // },
+  // {
+  //   title: "MAC Address",
+  //   slug: "mac-address",
+  //   category: "Networking",
+  //   description: "Understanding MAC address and ARP.",
+  // },
 ];
 
 export default function NotesPage() {
