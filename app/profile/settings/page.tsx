@@ -70,10 +70,28 @@ export default function SettingsPage() {
     if (!confirm("Are you sure? This action cannot be undone.")) return;
 
     try {
-      // This would typically call a backend endpoint
+      const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+      if (sessionError || !sessionData.session?.access_token) {
+        setMessage("Failed to verify session");
+        return;
+      }
+
+      const response = await fetch("/api/account/delete", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${sessionData.session.access_token}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to delete account");
+        return;
+      }
+
       await supabase.auth.signOut();
-      router.push("/");
-      setMessage("Account deleted successfully");
+      router.push("/register");
     } catch (error) {
       setMessage("Failed to delete account");
     }
@@ -113,44 +131,23 @@ export default function SettingsPage() {
         {/* Appearance */}
         <Card className="mb-6">
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <Sun size={20} /> Appearance
+            <Moon size={20} /> Appearance
           </h2>
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Theme</label>
-              <select
-                value={settings.theme}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    theme: e.target.value as any,
-                  })
-                }
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:border-blue-600 focus:outline-none"
-              >
-                <option value="dark">Dark</option>
-                <option value="light">Light</option>
-                <option value="system">System</option>
-              </select>
+            <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+              <div>
+                <p className="text-sm font-medium">Theme</p>
+                <p className="text-xs text-gray-400">Fixed by system policy</p>
+              </div>
+              <span className="text-sm font-semibold text-blue-300">Dark</span>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Language</label>
-              <select
-                value={settings.language}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    language: e.target.value,
-                  })
-                }
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:border-blue-600 focus:outline-none"
-              >
-                <option value="en">English</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-              </select>
+            <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+              <div>
+                <p className="text-sm font-medium">Language</p>
+                <p className="text-xs text-gray-400">Fixed by system policy</p>
+              </div>
+              <span className="text-sm font-semibold text-blue-300">English</span>
             </div>
           </div>
         </Card>
