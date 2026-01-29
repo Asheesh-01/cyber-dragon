@@ -24,7 +24,7 @@ export default function VerifyOTP() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white px-4 sm:px-6 py-12 pt-28 sm:pt-32">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black text-black dark:text-white px-4 sm:px-6 py-12 pt-28 sm:pt-32">
       <div className="bg-white/5 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/10 shadow-xl hover:border-white/20 transition">
 
         <h1 className="text-2xl sm:text-3xl font-bold text-center">The Cyber Dragon</h1>

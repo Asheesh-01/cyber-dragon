@@ -1,5 +1,5 @@
 import "./globals.css";
-import Navbar from "./navbar";
+import { ClientLayout } from "./client-layout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -103,10 +103,8 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="bg-black text-white relative overflow-x-hidden">
-        <Navbar />
-        <main className="pt-16">{children}</main>
-
+      <body className="relative overflow-x-hidden transition-colors duration-300">
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

@@ -1,297 +1,297 @@
 "use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Card, Badge, ProgressBar, Button } from "@/components/UI";
+import { CareerPaths } from "@/data/roadmap";
 import BackButton from "@/components/BackButton";
+import { ChevronDown, ChevronUp, CheckCircle, Circle } from "lucide-react";
 
-import { useState } from "react";
+interface ExpandedVolume {
+  [key: string]: boolean;
+}
 
-// export const metadata = {
-//   title: "CyberDragon Roadmap – Security Engineer Path",
-//   description:
-//     "Follow CyberDragon’s structured Security Engineer roadmap from beginner to advanced.",
-// };
+export default function RoadmapDetailPage() {
+  const [expandedVolumes, setExpandedVolumes] = useState<ExpandedVolume>({});
+  const [completedTopics, setCompletedTopics] = useState<string[]>([]);
 
-const roadmap = [
-  {
-    id: 1,
-    title: "Volume 1 – Foundations & Cybersecurity Basics",
-    description: "Computer, Internet and Cybersecurity fundamentals",
-    topics: [
-      "What is Computer",
-      "How Computer Works",
-      "What is Operating System",
-      "Types of Operating Systems",
-      "What is Internet",
-      "How Internet Works",
-      "What is Network",
-      "What is Cybersecurity",
-      "Why Cybersecurity Exists",
-      "What is Malware",
-      "Types of Malware",
-      "Who is Hacker",
-      "Types of Hackers",
-      "CIA Triad",
-      "Threat, Vulnerability, Risk",
-      "Security Engineer Role",
-    ],
-  },
+  const careerPath = CareerPaths[0]; // Security Engineer
+  
+  // Load progress from localStorage on mount
+  useEffect(() => {
+    const savedProgress = localStorage.getItem("userProgress");
+    if (savedProgress) {
+      try {
+        const progress = JSON.parse(savedProgress);
+        const topicIds = progress.map((p: any) => p.topicId);
+        setCompletedTopics(topicIds);
+      } catch (error) {
+        console.error("Failed to load progress:", error);
+      }
+    }
+  }, []);
 
-  {
-    id: 2,
-    title: "Volume 2 – Operating Systems & Linux",
-    description: "Windows, Linux and OS internals",
-    topics: [
-      "OS Architecture",
-      "Kernel & User Space",
-      "Windows File System",
-      "Windows Users & Groups",
-      "Windows Processes & Services",
-      "Windows Registry",
-      "Windows Logs",
-      "Linux File System",
-      "Linux Permissions",
-      "Linux Users & Groups",
-      "Linux Processes",
-      "Linux Package Management",
-      "Linux Services",
-      "Linux Logging",
-      "Disk Management",
-      "OS Hardening",
-    ],
-  },
+  const toggleVolumeExpand = (volumeId: string) => {
+    setExpandedVolumes((prev) => ({
+      ...prev,
+      [volumeId]: !prev[volumeId],
+    }));
+  };
 
-  {
-    id: 3,
-    title: "Volume 3 – Networking From Zero",
-    description: "Networking foundations for security",
-    topics: [
-      "OSI Model",
-      "TCP/IP Model",
-      "IP Addressing",
-      "Subnetting",
-      "MAC Address",
-      "ARP",
-      "Ports & Services",
-      "TCP vs UDP",
-      "DNS",
-      "DHCP",
-      "Routing",
-      "Firewalls",
-      "VPN",
-      "Wireless Networking",
-      "Network Scanning",
-      "Packet Analysis",
-    ],
-  },
+  const toggleTopicComplete = (topicId: string) => {
+    setCompletedTopics((prev) => {
+      const isCompleted = prev.includes(topicId);
+      let progress;
+      
+      if (isCompleted) {
+        // When unchecking - remove the topic
+        const updatedTopics = prev.filter((id) => id !== topicId);
+        progress = updatedTopics;
+      } else {
+        // When checking - add new topic with current timestamp
+        const updatedTopics = [...prev, topicId];
+        const savedProgress = localStorage.getItem("userProgress");
+        let existingProgress: Array<{ topicId: string; completedAt: string }> = [];
+        
+        if (savedProgress) {
+          try {
+            existingProgress = JSON.parse(savedProgress);
+          } catch (error) {
+            console.error("Failed to parse existing progress:", error);
+          }
+        }
 
-  {
-    id: 4,
-    title: "Volume 4 – Programming (Python)",
-    description: "Python from zero for automation",
-    topics: [
-      "Variables",
-      "Data Types",
-      "Operators",
-      "Conditionals",
-      "Loops",
-      "Functions",
-      "Lists, Tuples, Sets, Dictionaries",
-      "File Handling",
-      "Error Handling",
-      "Modules & Packages",
-      "Regex",
-      "API Requests",
-      "Automation Scripts",
-      "Security Libraries",
-    ],
-  },
+        // Preserve existing completion times and add new one
+        const topicExists = existingProgress.some((p) => p.topicId === topicId);
+        if (!topicExists) {
+          existingProgress.push({
+            topicId,
+            completedAt: new Date().toISOString(),
+          });
+        }
 
-  {
-    id: 5,
-    title: "Volume 5 – Security Foundations",
-    description: "Core defensive security knowledge",
-    topics: [
-      "Authentication",
-      "Authorization",
-      "Encryption",
-      "Hashing",
-      "Web Security Basics",
-      "OWASP Top 10",
-      "Network Security Basics",
-      "Endpoint Security",
-      "Identity & Access Management",
-      "Logging & Monitoring",
-      "Incident Response",
-      "Security Policies",
-    ],
-  },
+        localStorage.setItem("userProgress", JSON.stringify(existingProgress));
+        return updatedTopics;
+      }
 
-  {
-    id: 6,
-    title: "Volume 6 – Blue Team Core",
-    description: "SOC & detection fundamentals",
-    topics: [
-      "SOC Operations",
-      "SIEM",
-      "Log Sources",
-      "Threat Intelligence",
-      "Malware Analysis Basics",
-      "Endpoint Detection & Response",
-      "Network Traffic Analysis",
-      "Alert Triage",
-      "Incident Handling",
-      "Digital Forensics Basics",
-      "Threat Hunting",
-    ],
-  },
+      // For unchecking - update localStorage
+      const savedProgress = localStorage.getItem("userProgress");
+      let existingProgress: Array<{ topicId: string; completedAt: string }> = [];
+      
+      if (savedProgress) {
+        try {
+          existingProgress = JSON.parse(savedProgress);
+        } catch (error) {
+          console.error("Failed to parse existing progress:", error);
+        }
+      }
 
-  {
-    id: 7,
-    title: "Volume 7 – Cloud & DevOps Security",
-    description: "Cloud fundamentals and protection",
-    topics: [
-      "Cloud Computing Models",
-      "Shared Responsibility Model",
-      "Cloud IAM",
-      "Cloud Networking",
-      "Cloud Compute",
-      "Cloud Storage Security",
-      "Cloud Logging",
-      "Container Security",
-      "CI/CD Security",
-      "Infrastructure as Code",
-      "Cloud Attacks",
-    ],
-  },
+      // Remove the unchecked topic
+      const filteredProgress = existingProgress.filter((p) => p.topicId !== topicId);
+      localStorage.setItem("userProgress", JSON.stringify(filteredProgress));
 
-  {
-    id: 8,
-    title: "Volume 8 – Automation & Engineering",
-    description: "Build and automate security tools",
-    topics: [
-      "Python Automation",
-      "Git & GitHub",
-      "APIs",
-      "Building Security Tools",
-      "Ansible Basics",
-      "Task Scheduling",
-      "Documentation",
-    ],
-  },
+      return progress;
+    });
+  };
 
-  {
-    id: 9,
-    title: "Volume 9 – Projects & Portfolio",
-    description: "Hands-on real world projects",
-    topics: [
-      "Linux Hardening Project",
-      "Network Scanner",
-      "Log Monitoring System",
-      "SIEM Lab",
-      "Cloud Security Lab",
-      "Automation Scripts",
-      "Documentation & Blog",
-    ],
-  },
+  const calculateProgress = (volumeId: string) => {
+    const volume = careerPath.volumes.find((v) => v.id === volumeId);
+    if (!volume) return 0;
+    const completed = volume.topics.filter((t) =>
+      completedTopics.includes(t.id)
+    ).length;
+    return Math.round((completed / volume.topics.length) * 100);
+  };
 
-  {
-    id: 10,
-    title: "Volume 10 – Career Preparation",
-    description: "Job and industry readiness",
-    topics: [
-      "Resume Building",
-      "LinkedIn Optimization",
-      "GitHub Profile",
-      "Interview Preparation",
-      "Certifications",
-      "Internships",
-      "Job Applications",
-      "Continuous Learning",
-    ],
-  },
-];
-
-
-export default function RoadmapPage() {
-  const [openId, setOpenId] = useState<number | null>(null);
+  const totalProgress = Math.round(
+    (completedTopics.length /
+      careerPath.volumes.reduce((sum, v) => sum + v.topics.length, 0)) *
+      100
+  );
 
   return (
-    <main className="min-h-screen bg-black text-white px-4 py-20 pt-32">
+    <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white pt-28 pb-16 px-4">
       <div className="max-w-5xl mx-auto">
+        <BackButton />
 
-        {/* HEADER */}
- {/* HEADER */}
-<div className="mb-14">
-
-  {/* Back Button */}
-  <div className="mb-6">
-    <BackButton />
-  </div>
-
-  <div className="text-center">
-    <h1 className="text-4xl font-bold mb-4 text-white">
-      Security Engineer Roadmap
-    </h1>
-
-    <p className="text-grey-400">
-      Click a volume to expand and view topics
-    </p>
-  </div>
-
-</div>
-
-
-        {/* VOLUMES */}
-        <div className="space-y-5">
-
-          {roadmap.map((item) => {
-            const isOpen = openId === item.id;
-
-            return (
-              <div
-                key={item.id}
-                onClick={() =>
-                  setOpenId(isOpen ? null : item.id)
-                }
-                className="bg-white/5 border border-white/10 rounded-2xl p-5 cursor-pointer hover:border-white/20 transition"
-              >
-                {/* HEADER ROW */}
-                <div className="flex items-center justify-between">
-
-                  <div>
-                    <h3 className="text-lg font-bold text-blue-400">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-gray-400">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  {/* ARROW */}
-                  <div
-                    className={`text-xl transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    ▼
-                  </div>
-                </div>
-
-                {/* EXPANDED CONTENT */}
-                {isOpen && (
-                  <div className="mt-4 pl-4 border-l border-white/10">
-                    <ul className="space-y-2 text-gray-300 text-sm">
-                      {item.topics.map((topic, i) => (
-                        <li key={i}>• {topic}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="text-5xl">{careerPath.icon}</div>
+            <div>
+              <h1 className="text-4xl font-bold mb-2">{careerPath.title}</h1>
+              <p className="text-gray-400 mb-4">{careerPath.description}</p>
+              <div className="flex gap-2 flex-wrap">
+                <Badge variant="primary">{careerPath.level}</Badge>
+                <Badge variant="secondary">
+                  {careerPath.estimatedWeeks} weeks
+                </Badge>
+                <Badge variant="secondary">
+                  {careerPath.volumes.reduce((sum, v) => sum + v.estimatedHours, 0)}h
+                </Badge>
               </div>
-            );
-          })}
-
+            </div>
+          </div>
         </div>
 
+        {/* Overall Progress */}
+        <Card className="mb-8">
+          <div className="mb-4">
+            <h2 className="text-lg font-bold mb-2">Your Progress</h2>
+            <p className="text-sm text-gray-400">
+              {completedTopics.length} of{" "}
+              {careerPath.volumes.reduce((sum, v) => sum + v.topics.length, 0)}{" "}
+              topics completed
+            </p>
+          </div>
+          <ProgressBar
+            value={totalProgress}
+            label="Overall Progress"
+            showLabel={true}
+          />
+        </Card>
+
+        {/* Skills & Jobs */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <Card>
+            <h3 className="text-lg font-bold mb-4">Skills You'll Learn</h3>
+            <div className="flex flex-wrap gap-2">
+              {careerPath.skills.map((skill, i) => (
+                <Badge key={i} variant="primary">
+                  {skill}
+                </Badge>
+              ))}
+            </div>
+          </Card>
+
+          <Card>
+            <h3 className="text-lg font-bold mb-4">Job Roles</h3>
+            <ul className="space-y-2">
+              {careerPath.jobRoles.map((role, i) => (
+                <li key={i} className="flex items-center gap-2 text-gray-300">
+                  <span className="text-blue-400">▸</span> {role}
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+
+        {/* Volumes & Topics */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold mb-6">Learning Volumes</h2>
+
+          {careerPath.volumes.map((volume, idx) => {
+            const isExpanded = expandedVolumes[volume.id];
+            const progress = calculateProgress(volume.id);
+
+            return (
+              <Card key={volume.id}>
+                <button
+                  onClick={() => toggleVolumeExpand(volume.id)}
+                  className="w-full text-left"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className="text-2xl font-bold text-blue-500">
+                        Vol {idx + 1}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold mb-1">
+                          {volume.title}
+                        </h3>
+                        <p className="text-sm text-gray-400">
+                          {volume.description}
+                        </p>
+                      </div>
+                    </div>
+                    {isExpanded ? (
+                      <ChevronUp className="text-gray-400" />
+                    ) : (
+                      <ChevronDown className="text-gray-400" />
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <ProgressBar
+                      value={progress}
+                      label={`${volume.topics.length} topics`}
+                      showLabel={false}
+                    />
+                    <div className="ml-4 text-right text-sm text-gray-400">
+                      {progress}%
+                    </div>
+                  </div>
+                </button>
+
+                {/* Topics List */}
+                {isExpanded && (
+                  <div className="mt-6 pt-6 border-t border-white/10">
+                    <div className="space-y-3">
+                      {volume.topics.map((topic) => {
+                        const isCompleted = completedTopics.includes(topic.id);
+                        return (
+                          <div
+                            key={topic.id}
+                            className="flex items-start gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition"
+                          >
+                            <button
+                              onClick={() => toggleTopicComplete(topic.id)}
+                              className="mt-1 flex-shrink-0"
+                            >
+                              {isCompleted ? (
+                                <CheckCircle className="text-green-500" size={20} />
+                              ) : (
+                                <Circle
+                                  className="text-gray-500 hover:text-blue-400"
+                                  size={20}
+                                />
+                              )}
+                            </button>
+                            <div className="flex-1 min-w-0">
+                              <h4
+                                className={`font-medium ${
+                                  isCompleted
+                                    ? "text-gray-500 line-through"
+                                    : "text-white"
+                                }`}
+                              >
+                                {topic.title}
+                              </h4>
+                              <p className="text-sm text-gray-500 mt-1">
+                                {topic.description}
+                              </p>
+                              <div className="flex gap-2 mt-2 flex-wrap">
+                                <Badge variant="secondary" className="text-xs">
+                                  {topic.estimatedHours}h
+                                </Badge>
+                                {topic.skills.map((skill, i) => (
+                                  <Badge key={i} variant="secondary" className="text-xs">
+                                    {skill}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* CTA */}
+        <Card className="mt-12 text-center">
+          <h3 className="text-2xl font-bold mb-4">Ready to start learning?</h3>
+          <p className="text-gray-400 mb-6">
+            Begin your journey to becoming a Security Engineer
+          </p>
+          <Link href="/dashboard">
+            <Button className="inline-block">Go to Dashboard</Button>
+          </Link>
+        </Card>
       </div>
     </main>
   );

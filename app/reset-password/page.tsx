@@ -37,7 +37,7 @@ export default function ResetPassword() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 py-12 pt-28 sm:pt-32">
+    <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex items-center justify-center px-4 sm:px-6 py-12 pt-28 sm:pt-32">
       <div className="w-full max-w-md">
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-white/20 transition">
 
