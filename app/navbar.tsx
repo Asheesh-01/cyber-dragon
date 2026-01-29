@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/lib/theme-context";
+import { Home, Map, BookOpen, FlaskConical, FileText, Trophy, LayoutDashboard, User, LogOut, Shield, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -152,9 +153,14 @@ export default function Navbar() {
           {/* HAMBURGER */}
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="text-black dark:text-white text-xl w-9 h-9 flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 rounded transition"
+            className="relative text-black dark:text-white w-10 h-10 flex items-center justify-center hover:bg-blue-600/10 rounded-lg transition-all duration-200"
+            aria-label="Menu"
           >
-            {open ? "✕" : "☰"}
+            {open ? (
+              <X size={24} className="animate-in spin-in-180 duration-200" />
+            ) : (
+              <Menu size={24} className="animate-in fade-in duration-200" />
+            )}
           </button>
         </div>
       </div>
@@ -162,51 +168,114 @@ export default function Navbar() {
       {/* DROPDOWN */}
       {open && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
           onClick={() => setOpen(false)}
         >
           <div
             ref={menuRef}
             onClick={(e) => e.stopPropagation()}
-            className="absolute top-16 right-4 w-64 bg-white dark:bg-black/95 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl rounded-xl z-50"
+            className="absolute top-16 right-4 w-80 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-black border border-black/10 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden animate-in slide-in-from-top-2 duration-300"
           >
-            <div className="flex flex-col p-3">
-              <Link href="/" className="menuItem">{t("home")}</Link>
-              <Link href="/roadmap" className="menuItem">{t("roadmap")}</Link>
-              <Link href="/courses" className="menuItem">{t("courses")}</Link>
-              <Link href="/labs" className="menuItem">{t("labs")}</Link>
-              <Link href="/notes" className="menuItem">Notes</Link>
-              <Link href="/challenges" className="menuItem">{t("challenges")}</Link>
-              <Link href="/about" className="menuItem">{t("about")}</Link>
+            {/* User Info Header */}
+            {user && (
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/50 bg-white/20">
+                    {profileImage ? (
+                      <img
+                        src={profileImage}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-lg font-bold">
+                        {user.user_metadata?.name?.charAt(0).toUpperCase() || "U"}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm truncate">
+                      {user.user_metadata?.name || "User"}
+                    </p>
+                    <p className="text-xs text-white/80 truncate">{user.email}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-col p-2 max-h-[calc(100vh-200px)] overflow-y-auto">
+              {/* Main Navigation */}
+              <div className="space-y-1">
+                <Link href="/" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-600/8 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group">
+                  <Home size={18} className="flex-shrink-0 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium">{t("home")}</span>
+                </Link>
+                <Link href="/roadmap" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-600/8 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group">
+                  <Map size={18} className="flex-shrink-0 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium">{t("roadmap")}</span>
+                </Link>
+                <Link href="/courses" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-600/8 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group">
+                  <BookOpen size={18} className="flex-shrink-0 text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium">{t("courses")}</span>
+                </Link>
+                <Link href="/labs" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-600/8 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group">
+                  <FlaskConical size={18} className="flex-shrink-0 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium">{t("labs")}</span>
+                </Link>
+                <Link href="/notes" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-600/8 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group">
+                  <FileText size={18} className="flex-shrink-0 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium">Notes</span>
+                </Link>
+                <Link href="/challenges" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-600/8 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group">
+                  <Trophy size={18} className="flex-shrink-0 text-yellow-600 dark:text-yellow-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium">{t("challenges")}</span>
+                </Link>
+              </div>
 
               {user && (
                 <>
-                  <div className="border-t border-black/10 dark:border-white/10 my-2" />
-                  <Link href="/dashboard" className="menuItem text-blue-700 dark:text-blue-300">{t("dashboard")}</Link>
-                  <Link href="/profile" className="menuItem text-blue-700 dark:text-blue-300">{t("profile")}</Link>
+                  <div className="border-t border-black/10 dark:border-white/20 my-3" />
+                  
+                  {/* User Actions */}
+                  <div className="space-y-1">
+                    <Link href="/dashboard" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-all duration-200 group">
+                      <LayoutDashboard size={18} className="flex-shrink-0 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-semibold">{t("dashboard")}</span>
+                    </Link>
+                    <Link href="/profile" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-all duration-200 group">
+                      <User size={18} className="flex-shrink-0 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-semibold">{t("profile")}</span>
+                    </Link>
+                  </div>
                 </>
               )}
 
               {role === "admin" && (
-                <Link href="/admin" className="menuItem text-red-600 dark:text-red-400">
-                  {t("admin_panel")}
-                </Link>
+                <>
+                  <div className="border-t border-black/10 dark:border-white/20 my-3" />
+                  <Link href="/admin" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-950/50 transition-all duration-200 group">
+                    <Shield size={18} className="flex-shrink-0 text-red-600 dark:text-red-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-sm font-semibold">{t("admin_panel")}</span>
+                  </Link>
+                </>
               )}
 
-              <div className="border-t border-black/10 dark:border-white/10 mt-2 pt-2">
+              <div className="border-t border-black/10 dark:border-white/20 mt-3 pt-2">
                 {user ? (
                   <button
                     onClick={() => {
                       handleLogout();
                       setOpen(false);
                     }}
-                    className="menuItem bg-red-600 text-white hover:bg-red-700 text-left w-full"
+                    className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-950/50 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-900 transition-all duration-200 group w-full text-left"
                   >
-                    {t("logout")}
+                    <LogOut size={18} className="flex-shrink-0 text-red-600 dark:text-red-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-sm font-semibold">{t("logout")}</span>
                   </button>
                 ) : (
-                  <Link href="/login" className="menuItem bg-blue-600 text-white hover:bg-blue-700">
-                    {t("login")}
+                  <Link href="/login" className="flex flex-row items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200 group">
+                    <User size={18} className="flex-shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="text-sm font-semibold">{t("login")}</span>
                   </Link>
                 )}
               </div>
@@ -214,30 +283,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        .menuItem {
-          padding: 10px 14px;
-          color: #333;
-          border-radius: 6px;
-          transition: all 0.2s ease;
-          display: block;
-        }
-        .menuItem:hover {
-          color: black;
-          background: rgba(0,0,0,0.08);
-        }
-        
-        @media (prefers-color-scheme: dark) {
-          .menuItem {
-            color: #ccc;
-          }
-          .menuItem:hover {
-            color: white;
-            background: rgba(255,255,255,0.08);
-          }
-        }
-      `}</style>
     </header>
   );
 }
