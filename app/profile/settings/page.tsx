@@ -247,22 +247,6 @@ export default function SettingsPage() {
           </Button>
         </div>
 
-        {/* Danger Zone */}
-        <Card className="border-red-600/30 bg-red-600/5">
-          <h2 className="text-xl font-bold mb-4 text-red-400">Danger Zone</h2>
-          <Button
-            variant="danger"
-            className="w-full"
-            onClick={handleDeleteAccount}
-          >
-            <Trash2 size={18} className="mr-2" />
-            Delete Account
-          </Button>
-          <p className="text-xs text-gray-500 mt-3">
-            This action is permanent and cannot be undone. All your data will be
-            deleted.
-          </p>
-        </Card>
       </div>
     </main>
   );
