@@ -107,19 +107,17 @@ html.dark .social-btn:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Light Mode Card */
+/* Card */
 .card {
-  background: rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  border-radius: 16px;
-  width: 380px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 1rem;
   backdrop-filter: blur(10px);
-  transition: background-color 0.3s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-/* Dark Mode Card */
-html.dark .card {
-  background: rgba(255, 255, 255, 0.05);
+.card:hover {
+  border-color: rgba(59, 130, 246, 0.6);
 }
 
 /* Light Mode Button */

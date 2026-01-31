@@ -1,151 +1,145 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { Card, Badge, Button, EmptyState } from "@/components/UI";
+import {
+  Terminal,
+  Play,
+  Clock,
+  BarChart3,
+  CheckCircle,
+  Lock,
+  Server,
+  Shield,
+  Globe,
+} from "lucide-react";
 import { Labs } from "@/data/roadmap";
-import { Clock, Zap, BookOpen } from "lucide-react";
+
+const categoryOptions = ["All", "Linux", "Networking", "Web Security", "Blue Team"];
+
+const categoryForLab = (lab: (typeof Labs)[number]) => {
+  if (lab.title.toLowerCase().includes("linux")) return "Linux";
+  if (lab.title.toLowerCase().includes("network")) return "Networking";
+  if (lab.title.toLowerCase().includes("sql") || lab.title.toLowerCase().includes("web")) return "Web Security";
+  return "Blue Team";
+};
+
+const getDifficultyColor = (difficulty: string) => {
+  switch (difficulty) {
+    case "beginner":
+      return "text-green-500 bg-green-500/10";
+    case "intermediate":
+      return "text-yellow-500 bg-yellow-500/10";
+    case "advanced":
+      return "text-red-500 bg-red-500/10";
+    default:
+      return "text-gray-500 bg-gray-500/10";
+  }
+};
 
 export default function LabsPage() {
-  const [filter, setFilter] = useState<"all" | "beginner" | "intermediate" | "advanced">("all");
-  const [activeType, setActiveType] = useState<"all" | "guided" | "challenge">("all");
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredLabs = Labs.filter((lab) => {
-    const difficulty = filter === "all" || lab.difficulty === filter;
-    const type = activeType === "all" || lab.type === activeType;
-    return difficulty && type;
+    const category = categoryForLab(lab);
+    return activeCategory === "All" || category === activeCategory;
   });
 
+  const completedCount = 0;
+  const totalPoints = 0;
+
   return (
-    <main className="min-h-screen bg-black text-white pt-28 pb-16 px-4">
+    <main className="min-h-screen bg-black text-white px-4 py-20 pt-32">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Security Labs</h1>
-          <p className="text-gray-400 text-lg">
-            Hands-on labs to apply what you've learned. Practice your skills in a safe environment.
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Hands-On Labs</h1>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Practice your skills in safe, sandboxed environments. Our labs provide real-world scenarios without
+            the real-world risks.
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-6 mb-8">
-          <div>
-            <label className="block text-sm font-medium mb-2">Difficulty</label>
-            <div className="flex gap-2 flex-wrap">
-              {(["all", "beginner", "intermediate", "advanced"] as const).map((level) => (
-                <button
-                  key={level}
-                  onClick={() => setFilter(level)}
-                  className={`px-4 py-2 rounded-lg font-medium transition ${
-                    filter === level
-                      ? "bg-blue-600 text-white"
-                      : "bg-white/10 text-gray-300 hover:bg-white/20"
-                  }`}
-                >
-                  {level.charAt(0).toUpperCase() + level.slice(1)}
-                </button>
-              ))}
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+          <div className="card p-4 text-center">
+            <div className="text-2xl font-bold text-blue-500">{Labs.length}</div>
+            <div className="text-sm text-gray-400">Total Labs</div>
           </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-2">Type</label>
-            <div className="flex gap-2 flex-wrap">
-              {(["all", "guided", "challenge"] as const).map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setActiveType(type)}
-                  className={`px-4 py-2 rounded-lg font-medium transition ${
-                    activeType === type
-                      ? "bg-blue-600 text-white"
-                      : "bg-white/10 text-gray-300 hover:bg-white/20"
-                  }`}
-                >
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
-                </button>
-              ))}
-            </div>
+          <div className="card p-4 text-center">
+            <div className="text-2xl font-bold text-yellow-500">Coming Soon</div>
+            <div className="text-sm text-gray-400">All Labs in Development</div>
           </div>
         </div>
 
-        {/* Labs Grid */}
-        {filteredLabs.length === 0 ? (
-          <EmptyState
-            icon="🧪"
-            title="No Labs Found"
-            description="Try adjusting your filters to find more labs"
-          />
-        ) : (
-          <div className="grid md:grid-cols-2 gap-6">
-            {filteredLabs.map((lab) => (
-              <div key={lab.id}>
-                <Card className="h-full opacity-60 hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1 hover:border-blue-500/50">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-2 flex-1">
-                      <h3 className="text-xl font-bold">{lab.title}</h3>
-                      <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
-                    </div>
-                    <Badge
-                      variant={
-                        lab.difficulty === "beginner"
-                          ? "success"
-                          : lab.difficulty === "intermediate"
-                          ? "warning"
-                          : "danger"
-                      }
-                    >
-                      {lab.difficulty}
-                    </Badge>
+        <div className="flex flex-wrap gap-2 mb-8">
+          {categoryOptions.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-4 py-2 rounded-lg text-sm transition ${
+                activeCategory === category
+                  ? "bg-blue-600 text-white"
+                  : "bg-white/5 text-gray-400 hover:bg-white/10"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredLabs.map((lab) => {
+            const category = categoryForLab(lab);
+            const iconMap = {
+              Linux: Terminal,
+              Networking: Server,
+              "Web Security": Shield,
+              "Blue Team": Globe,
+            } as const;
+            const LabIcon = iconMap[category] || Terminal;
+
+            return (
+              <div key={lab.id} className="card p-6 hover:border-yellow-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition opacity-75 cursor-not-allowed">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                    <LabIcon className="w-6 h-6 text-blue-500" />
                   </div>
+                  <span className="px-2 py-1 rounded text-xs font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                    Coming Soon
+                  </span>
+                </div>
 
-                  <p className="text-gray-400 mb-4">{lab.description}</p>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(lab.difficulty)}`}>
+                    {lab.difficulty.charAt(0).toUpperCase() + lab.difficulty.slice(1)}
+                  </span>
+                  <span className="text-xs text-gray-500">{category}</span>
+                </div>
 
-                  <div className="flex items-center gap-6 mb-4 text-sm text-gray-300">
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} />
-                      {lab.estimatedTime}min
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Zap size={16} />
-                      {lab.type === "guided" ? "Guided" : "Challenge"}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <BookOpen size={16} />
-                      {lab.environment}
-                    </div>
-                  </div>
+                <h3 className="text-lg font-bold mb-2">{lab.title}</h3>
+                <p className="text-gray-400 text-sm mb-4">{lab.description}</p>
 
-                  <Button variant="outline" size="sm" className="w-full cursor-not-allowed opacity-50">
-                    Coming Soon 🔒
-                  </Button>
-                </Card>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    {lab.estimatedTime} min
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <BarChart3 className="w-4 h-4" />
+                    {lab.type === "guided" ? "Guided" : "Challenge"}
+                  </span>
+                </div>
               </div>
-            ))}
+            );
+          })}
+        </div>
+
+        <div className="mt-12 card p-8 text-center">
+          <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-8 h-8 text-blue-500" />
           </div>
-        )}
-
-        {/* Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mt-12">
-          <Card hover={false}>
-            <p className="text-gray-400 text-sm">Total Labs</p>
-            <p className="text-3xl font-bold mt-2">{Labs.length}</p>
-          </Card>
-
-          <Card hover={false}>
-            <p className="text-gray-400 text-sm">Average Time</p>
-            <p className="text-3xl font-bold mt-2">
-              {Math.round(Labs.reduce((sum, l) => sum + l.estimatedTime, 0) / Labs.length)}
-              <span className="text-sm">min</span>
-            </p>
-          </Card>
-
-          <Card hover={false}>
-            <p className="text-gray-400 text-sm">Total Hours</p>
-            <p className="text-3xl font-bold mt-2">
-              {Math.round((Labs.reduce((sum, l) => sum + l.estimatedTime, 0) / 60) * 10) / 10}
-              <span className="text-sm">h</span>
-            </p>
-          </Card>
+          <h2 className="text-xl font-bold mb-2">More Labs Coming Soon</h2>
+          <p className="text-gray-400 max-w-lg mx-auto">
+            We&apos;re constantly adding new labs. Subscribe to get notified when new content is available.
+          </p>
         </div>
       </div>
     </main>

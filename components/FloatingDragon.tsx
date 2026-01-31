@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { X, Home, MessageSquare, HelpCircle, Send } from "lucide-react";
+import logo from "@/logo.png";
 
 export default function FloatingDragon() {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,10 +55,21 @@ export default function FloatingDragon() {
       {/* Floating Dragon Button */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="fixed bottom-6 right-6 z-40 text-5xl hover:scale-125 transition-transform duration-300 hover:drop-shadow-lg"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 text-2xl md:text-5xl hover:scale-125 transition-transform duration-300 hover:drop-shadow-lg"
         title={isOpen ? "Close Help" : "Help & Support"}
       >
-        {isOpen ? "💬" : "🐉"}
+        {isOpen ? (
+          "💬"
+        ) : (
+          <Image
+            src={logo}
+            alt="CyberDragon help"
+            width={48}
+            height={48}
+            className="h-26 w-16 md:h-30 md:w-22"
+            priority
+          />
+        )}
       </button>
 
       {/* Dragon Panel */}

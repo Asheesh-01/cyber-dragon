@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { supabase } from "@/app/lib/supabase";
+import { useContentStore } from "@/lib/content-store";
 import {
   Card,
   Badge,
@@ -12,7 +13,7 @@ import {
   LoadingSpinner,
 } from "@/components/UI";
 import { Volumes } from "@/data/roadmap";
-import { Flame, Award, BookOpen, Clock } from "lucide-react";
+import { Flame, Award, BookOpen, Clock, Lock } from "lucide-react";
 
 interface DashboardStats {
   currentStreak: number;
@@ -43,6 +44,9 @@ interface VolumeProgress {
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState<string>("user");
+  const { items: courseItems } = useContentStore("course");
+  const { items: roadmapItems } = useContentStore("roadmap");
   const [stats, setStats] = useState<DashboardStats>({
     currentStreak: 0,
     totalProgress: 0,
@@ -63,6 +67,7 @@ export default function Dashboard() {
         const { data } = await supabase.auth.getUser();
         if (data.user) {
           setUser(data.user);
+          setRole(data.user.user_metadata?.role || "user");
           
           // Get user progress from localStorage (since we don't have backend yet)
           const savedProgress = localStorage.getItem("userProgress");
@@ -197,6 +202,14 @@ export default function Dashboard() {
 
     setRecentActivity(activities);
   };
+
+  const visibleCourses = useMemo(() =>
+    role === "admin" ? courseItems : courseItems.filter((c) => c.visibility !== "private"),
+  [courseItems, role]);
+
+  const visibleRoadmaps = useMemo(() =>
+    role === "admin" ? roadmapItems : roadmapItems.filter((r) => r.visibility !== "private"),
+  [roadmapItems, role]);
 
   if (loading) {
     return (
@@ -388,6 +401,68 @@ export default function Dashboard() {
                       🎉 You've completed all volumes!
                     </p>
                   </div>
+                )}
+              </div>
+            </Card>
+
+            <Card>
+              <h3 className="text-lg font-bold mb-4">Featured Courses</h3>
+              <div className="space-y-3">
+                {visibleCourses.slice(0, 3).map((course) => {
+                  const isLocked = course.visibility === "coming_soon" || course.locked;
+                  const content = (
+                    <div className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition border border-white/10">
+                      <p className="text-sm font-medium">{course.title}</p>
+                      <p className="text-xs text-gray-500 mt-1">{course.category}</p>
+                      {isLocked && (
+                        <p className="text-xs text-yellow-400 mt-2 flex items-center gap-1">
+                          <Lock className="w-3 h-3" /> Locked
+                        </p>
+                      )}
+                    </div>
+                  );
+
+                  return isLocked ? (
+                    <div key={course.id}>{content}</div>
+                  ) : (
+                    <Link key={course.id} href={`/courses/${course.slug}`}>
+                      {content}
+                    </Link>
+                  );
+                })}
+                {visibleCourses.length === 0 && (
+                  <p className="text-sm text-gray-500">No courses available.</p>
+                )}
+              </div>
+            </Card>
+
+            <Card>
+              <h3 className="text-lg font-bold mb-4">Roadmaps</h3>
+              <div className="space-y-3">
+                {visibleRoadmaps.slice(0, 3).map((roadmap) => {
+                  const isLocked = roadmap.visibility === "coming_soon" || roadmap.locked;
+                  const content = (
+                    <div className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition border border-white/10">
+                      <p className="text-sm font-medium">{roadmap.title}</p>
+                      <p className="text-xs text-gray-500 mt-1">{roadmap.category}</p>
+                      {isLocked && (
+                        <p className="text-xs text-yellow-400 mt-2 flex items-center gap-1">
+                          <Lock className="w-3 h-3" /> Locked
+                        </p>
+                      )}
+                    </div>
+                  );
+
+                  return isLocked ? (
+                    <div key={roadmap.id}>{content}</div>
+                  ) : (
+                    <Link key={roadmap.id} href={`/roadmap/${roadmap.slug}`}>
+                      {content}
+                    </Link>
+                  );
+                })}
+                {visibleRoadmaps.length === 0 && (
+                  <p className="text-sm text-gray-500">No roadmaps available.</p>
                 )}
               </div>
             </Card>

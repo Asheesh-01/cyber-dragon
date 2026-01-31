@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About CyberDragon – Learn Cybersecurity",
-  description: "Learn about CyberDragon's mission to build the next generation of cybersecurity professionals through real industry practices.",
+  description:
+    "Learn about CyberDragon's mission to build the next generation of cybersecurity professionals through real industry practices.",
 };
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
-
-      {/* Hero Section */}
+    <main className="min-h-screen bg-black text-white">
       <section className="flex flex-col items-center justify-center px-4 sm:px-6 pt-20 pb-16 min-h-[70vh]">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center leading-tight mb-4">
           About CyberDragon
@@ -24,7 +23,6 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Our Story Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
@@ -51,7 +49,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Why We Exist Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 max-w-5xl mx-auto w-full">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why CyberDragon Exists</h2>
@@ -87,7 +84,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What Makes Us Different Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
@@ -137,7 +133,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Philosophy Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 max-w-5xl mx-auto w-full">
         <div className="bg-gradient-to-r from-blue-600/20 to-blue-400/10 border border-blue-500/30 rounded-2xl p-8 sm:p-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center">Learning Philosophy</h2>
@@ -150,7 +145,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who We Serve Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
@@ -189,7 +183,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Platform Status Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 max-w-5xl mx-auto w-full">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Current Platform Status</h2>
@@ -220,7 +213,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Vision Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 bg-white/5 backdrop-blur-sm w-full">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Our Vision</h2>
@@ -235,18 +227,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Closing Section */}
       <section className="px-4 sm:px-6 py-6 sm:py-20 max-w-5xl mx-auto w-full text-center">
         <div className="border-t border-gray-800 pt-12">
-          <p className="text-gray-400 text-lg mb-4">
-            CyberDragon is not a finished product.
-          </p>
-          <p className="text-white font-semibold text-2xl mb-4">
-            It is a living system.
-          </p>
-          <p className="text-gray-400 text-lg">
-            And you are watching it grow from its foundation.
-          </p>
+          <p className="text-gray-400 text-lg mb-4">CyberDragon is not a finished product.</p>
+          <p className="text-white font-semibold text-2xl mb-4">It is a living system.</p>
+          <p className="text-gray-400 text-lg">And you are watching it grow from its foundation.</p>
         </div>
       </section>
     </main>

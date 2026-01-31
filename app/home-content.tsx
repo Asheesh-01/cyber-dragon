@@ -79,19 +79,19 @@ export default function HomeContent() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl px-2">
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center hover:border-blue-500/50 transition group">
+          <div className="card p-6 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
             <p className="text-4xl font-bold text-blue-400 mb-2 group-hover:text-cyan-400 transition">10K+</p>
             <p className="text-gray-300 font-semibold">Active Students</p>
             <p className="text-gray-500 text-xs mt-2">Learning & growing daily</p>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center hover:border-blue-500/50 transition group">
+          <div className="card p-6 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
             <p className="text-4xl font-bold text-blue-400 mb-2 group-hover:text-cyan-400 transition">500+</p>
             <p className="text-gray-300 font-semibold">Topics & Modules</p>
             <p className="text-gray-500 text-xs mt-2">Comprehensive curriculum</p>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center hover:border-blue-500/50 transition group">
+          <div className="card p-6 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
             <p className="text-4xl font-bold text-blue-400 mb-2 group-hover:text-cyan-400 transition">100%</p>
             <p className="text-gray-300 font-semibold">Industry-Focused</p>
             <p className="text-gray-500 text-xs mt-2">Real-world scenarios</p>
@@ -100,7 +100,7 @@ export default function HomeContent() {
       </section>
 
       {/* Why Choose Section */}
-      <section className="px-4 sm:px-6 py-20 bg-gradient-to-b from-blue-500/5 to-transparent w-full">
+      <section className="px-4 sm:px-6 py-20 w-full border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">Why Choose CyberDragon?</h2>
@@ -110,7 +110,7 @@ export default function HomeContent() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-black/60 transition group">
+            <div className="card p-8 hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
               <div className="text-5xl mb-4 group-hover:scale-110 transition">🛡️</div>
               <h3 className="text-xl font-bold mb-3">Industry-Expert Instructors</h3>
               <p className="text-gray-400">
@@ -118,7 +118,7 @@ export default function HomeContent() {
               </p>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-black/60 transition group">
+            <div className="card p-8 hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
               <div className="text-5xl mb-4 group-hover:scale-110 transition">🗺️</div>
               <h3 className="text-xl font-bold mb-3">Clear Learning Paths</h3>
               <p className="text-gray-400">
@@ -126,7 +126,7 @@ export default function HomeContent() {
               </p>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-black/60 transition group">
+            <div className="card p-8 hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
               <div className="text-5xl mb-4 group-hover:scale-110 transition">💻</div>
               <h3 className="text-xl font-bold mb-3">Hands-On Lab Environment</h3>
               <p className="text-gray-400">
@@ -134,7 +134,7 @@ export default function HomeContent() {
               </p>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-black/60 transition group">
+            <div className="card p-8 hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
               <div className="text-5xl mb-4 group-hover:scale-110 transition">🎓</div>
               <h3 className="text-xl font-bold mb-3">Recognized Certifications</h3>
               <p className="text-gray-400">
@@ -142,7 +142,7 @@ export default function HomeContent() {
               </p>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-black/60 transition group">
+            <div className="card p-8 hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
               <div className="text-5xl mb-4 group-hover:scale-110 transition">👥</div>
               <h3 className="text-xl font-bold mb-3">Active Community</h3>
               <p className="text-gray-400">
@@ -150,7 +150,7 @@ export default function HomeContent() {
               </p>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 hover:bg-black/60 transition group">
+            <div className="card p-8 hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition group">
               <div className="text-5xl mb-4 group-hover:scale-110 transition">⚡</div>
               <h3 className="text-xl font-bold mb-3">Lifetime Access</h3>
               <p className="text-gray-400">
@@ -162,7 +162,7 @@ export default function HomeContent() {
       </section>
 
       {/* Learning Paths Preview */}
-      <section className="px-4 sm:px-6 py-20 max-w-6xl mx-auto w-full">
+      <section className="px-4 sm:px-6 py-20 max-w-6xl mx-auto w-full border-t border-white/5">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">Specialization Paths</h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -172,7 +172,7 @@ export default function HomeContent() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Link href="/roadmap/security-engineer">
-            <div className="bg-gradient-to-br from-blue-900/30 to-blue-900/10 backdrop-blur-xl border border-blue-500/50 rounded-2xl p-8 hover:border-blue-400 hover:from-blue-900/50 transition cursor-pointer group">
+            <div className="card bg-gradient-to-br from-blue-900/30 to-blue-900/10 border-blue-500/50 p-8 hover:border-blue-400 hover:bg-white/10 hover:backdrop-blur-xl transition cursor-pointer group">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-5xl">🛡️</div>
                 <span className="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">Available</span>
@@ -188,7 +188,7 @@ export default function HomeContent() {
             </div>
           </Link>
 
-          <div className="bg-gradient-to-br from-red-900/30 to-red-900/10 backdrop-blur-xl border border-red-500/30 rounded-2xl p-8 opacity-60">
+          <div className="card bg-gradient-to-br from-red-900/30 to-red-900/10 border-red-500/30 p-8 opacity-60">
             <div className="flex items-start justify-between mb-4">
               <div className="text-5xl">🔨</div>
               <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full border border-yellow-500/30">Coming Soon</span>
@@ -202,7 +202,7 @@ export default function HomeContent() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-900/30 to-purple-900/10 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-8 opacity-60">
+          <div className="card bg-gradient-to-br from-purple-900/30 to-purple-900/10 border-purple-500/30 p-8 opacity-60">
             <div className="flex items-start justify-between mb-4">
               <div className="text-5xl">📊</div>
               <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full border border-yellow-500/30">Coming Soon</span>
@@ -216,7 +216,7 @@ export default function HomeContent() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-900/30 to-orange-900/10 backdrop-blur-xl border border-orange-500/30 rounded-2xl p-8 opacity-60">
+          <div className="card bg-gradient-to-br from-orange-900/30 to-orange-900/10 border-orange-500/30 p-8 opacity-60">
             <div className="flex items-start justify-between mb-4">
               <div className="text-5xl">🦠</div>
               <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full border border-yellow-500/30">Coming Soon</span>
@@ -241,7 +241,7 @@ export default function HomeContent() {
       </section>
 
       {/* Featured Courses Section */}
-      <section className="px-4 sm:px-6 py-20 bg-white/5 backdrop-blur-sm w-full">
+      <section className="px-4 sm:px-6 py-20 w-full border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">Start with Foundational Courses</h2>
@@ -251,7 +251,7 @@ export default function HomeContent() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed h-full">
+            <div className="card p-6 opacity-60 cursor-not-allowed h-full">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-4xl">🐧</div>
                 <span className="text-xs font-bold px-3 py-1 rounded-full border bg-gray-500/20 text-gray-400 border-gray-500/30">
@@ -266,7 +266,7 @@ export default function HomeContent() {
               </div>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed h-full">
+            <div className="card p-6 opacity-60 cursor-not-allowed h-full">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-4xl">🌐</div>
                 <span className="text-xs font-bold px-3 py-1 rounded-full border bg-gray-500/20 text-gray-400 border-gray-500/30">
@@ -281,7 +281,7 @@ export default function HomeContent() {
               </div>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 opacity-60 cursor-not-allowed h-full">
+            <div className="card p-6 opacity-60 cursor-not-allowed h-full">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-4xl">🔍</div>
                 <span className="text-xs font-bold px-3 py-1 rounded-full border bg-gray-500/20 text-gray-400 border-gray-500/30">
@@ -308,29 +308,29 @@ export default function HomeContent() {
       </section>
 
       {/* Trust & Social Proof */}
-      <section className="px-4 sm:px-6 py-20 max-w-6xl mx-auto w-full">
+      <section className="px-4 sm:px-6 py-20 max-w-6xl mx-auto w-full border-t border-white/5">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">Trusted by Industry Professionals</h2>
           <p className="text-gray-400 text-lg">Join thousands of cybersecurity professionals worldwide</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center hover:border-blue-500/50 transition">
+          <div className="card p-8 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition">
             <p className="text-4xl font-bold text-blue-400 mb-2">10K+</p>
             <p className="text-gray-300 font-semibold">Active Learners</p>
             <p className="text-gray-500 text-xs mt-2">Growing daily</p>
           </div>
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center hover:border-blue-500/50 transition">
+          <div className="card p-8 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition">
             <p className="text-4xl font-bold text-blue-400 mb-2">4.9★</p>
             <p className="text-gray-300 font-semibold">Course Rating</p>
             <p className="text-gray-500 text-xs mt-2">From 2000+ reviews</p>
           </div>
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center hover:border-blue-500/50 transition">
+          <div className="card p-8 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition">
             <p className="text-4xl font-bold text-blue-400 mb-2">500+</p>
             <p className="text-gray-300 font-semibold">Certificates Issued</p>
             <p className="text-gray-500 text-xs mt-2">Verified credentials</p>
           </div>
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center hover:border-blue-500/50 transition">
+          <div className="card p-8 text-center hover:border-blue-500/50 hover:bg-white/10 hover:backdrop-blur-xl transition">
             <p className="text-4xl font-bold text-blue-400 mb-2">95%</p>
             <p className="text-gray-300 font-semibold">Job Placement</p>
             <p className="text-gray-500 text-xs mt-2">Within 6 months</p>
@@ -339,7 +339,7 @@ export default function HomeContent() {
       </section>
 
       {/* How It Works */}
-      <section className="px-4 sm:px-6 py-20 bg-gradient-to-b from-transparent to-blue-500/5 w-full">
+      <section className="px-4 sm:px-6 py-20 w-full border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">How to Get Started</h2>
@@ -389,8 +389,8 @@ export default function HomeContent() {
       </section>
 
       {/* Final CTA */}
-      <section className="px-4 sm:px-6 py-20 max-w-5xl mx-auto text-center w-full">
-        <div className="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 backdrop-blur-xl border border-blue-500/30 rounded-3xl p-12">
+      <section className="px-4 sm:px-6 py-20 max-w-5xl mx-auto text-center w-full border-t border-white/5">
+        <div className="card bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border-blue-500/30 p-12 hover:bg-white/10 hover:backdrop-blur-xl transition">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">Ready to Transform Your Career?</h2>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
             Join thousands of cybersecurity professionals. Start your learning journey today and build a lucrative career in one of the fastest-growing fields.

@@ -3,77 +3,65 @@ export default function CourseCard({ course }: any) {
     return price === "Free" ? "text-green-400" : "text-blue-400";
   };
 
+  const levelBadge = (level: string) => {
+    switch (level) {
+      case "Beginner":
+        return "bg-green-500/20 text-green-300";
+      case "Intermediate":
+        return "bg-yellow-500/20 text-yellow-300";
+      default:
+        return "bg-red-500/20 text-red-300";
+    }
+  };
+
   return (
-    <div
-      className="group cursor-not-allowed"
-    >
-      <div
-        className="
-          h-full bg-black/40 backdrop-blur-xl
-          border border-white/10
-          rounded-2xl p-6
-          transition-all duration-300 ease-out
-          opacity-60 hover:opacity-80 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1 hover:border-white/20
-        "
-      >
-        {/* Icon and Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="text-5xl">
-            {course.icon}
-          </div>
-          <span className="text-xs font-bold px-3 py-1 rounded-full border bg-gray-500/20 text-gray-400 border-gray-500/30">
-            Coming Soon
+    <div className="group cursor-not-allowed">
+      <div className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ease-out opacity-70 hover:opacity-100 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1 hover:border-blue-500/50">
+        {/* Media */}
+        <div className="relative h-36 bg-gradient-to-br from-indigo-900/60 via-purple-900/60 to-slate-900/60 flex items-center justify-center">
+          <div className="text-2xl text-white/60">▶</div>
+          <span className="absolute top-3 left-3 text-[10px] font-semibold px-2 py-1 rounded-full bg-white/10 text-gray-200">
+            {course.level}
+          </span>
+          <span className="absolute top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded-full bg-black/50 text-gray-200">
+            {course.price}
           </span>
         </div>
 
-        {/* Title and Category */}
-        <h2 className="text-xl font-bold mb-2 text-gray-400">
-          {course.title}
-        </h2>
+        {/* Content */}
+        <div className="p-5">
+          <div className="flex items-center gap-2 mb-2">
+            <span className={`text-[10px] font-semibold px-2 py-1 rounded-full ${levelBadge(course.level)}`}>
+              {course.level}
+            </span>
+            <span className="text-[10px] text-gray-400">{course.category}</span>
+            <span className="ml-auto text-[10px] font-semibold px-2 py-1 rounded-full border border-white/10 bg-white/5 text-gray-300">
+              Coming Soon
+            </span>
+          </div>
 
-        <p className="text-xs text-gray-400 font-semibold mb-4">
-          {course.category}
-        </p>
+          <h2 className="text-base font-semibold mb-2 text-white transition-colors group-hover:text-blue-400">
+            {course.title}
+          </h2>
 
-        {/* Description */}
-        <p className="text-gray-300 text-sm mb-4 line-clamp-2">
-          {course.description}
-        </p>
+          <p className="text-xs text-gray-400 mb-4 line-clamp-2">
+            {course.description}
+          </p>
 
-        {/* Topics */}
-        <div className="mb-4">
-          <p className="text-xs text-gray-400 font-semibold mb-2">KEY TOPICS</p>
-          <div className="flex flex-wrap gap-1">
-            {course.topics.slice(0, 3).map((topic: string, idx: number) => (
-              <span
-                key={idx}
-                className="text-xs bg-white/5 border border-white/10 rounded px-2 py-1 text-gray-300"
-              >
-                {topic}
-              </span>
-            ))}
+          <div className="flex items-center justify-between text-[11px] text-gray-400">
+            <div className="flex items-center gap-2">
+              <span>⏱ {course.duration}</span>
+              <span>•</span>
+              <span>{course.topics.length} modules</span>
+            </div>
+            <span className={getPriceColor(course.price)}>{course.price}</span>
+          </div>
+
+          <div className="mt-3 flex items-center justify-between text-[11px] text-gray-400">
+            <span>👥 1.2k</span>
+            <span>⭐ 4.8</span>
           </div>
         </div>
-
-        {/* Meta Info */}
-        <div className="flex items-center justify-between py-4 border-t border-white/10">
-          <div className="flex gap-3">
-            <div>
-              <p className="text-xs text-gray-400">Duration</p>
-              <p className="text-sm font-semibold text-gray-200">{course.duration}</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-400">Price</p>
-              <p className={`text-sm font-bold ${getPriceColor(course.price)}`}>{course.price}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <p className="mt-4 text-gray-400 font-semibold flex items-center gap-2">
-          Coming Soon
-          <span>🔒</span>
-        </p>
       </div>
     </div>
   );
